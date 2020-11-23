@@ -1,7 +1,123 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void mainMenu ();
+void secondMenu();
 
 int main(void) {
-    
+
+    mainMenu();
+
+    return EXIT_SUCCESS;
+
 }
+
+void mainMenu() {
+    int num, i, selector, selector1, selector3;
+
+        do{
+            system("cls");
+            printf("1. Modeler system \n"
+               "2. Manual\n"
+               "3. Luk program\n"
+               "Enter your choice : ");
+            scanf(" %d", &selector);
+        }while(selector < 1 || selector > 3);
+        
+        /* 1st terminal switch case */
+        switch(selector) {
+            /* Modeler system */
+            case 1:
+                system("cls");
+                printf("Du har valgt at modelere system.\n"
+                       "1. Ny proces\n"
+                       "2. Rediger proces\n"
+                       "3. Slet proces\n"
+                       "4. Afslut model\n"
+                       "5. Gaa til main menu\n"
+                       "6. Luk program\n"
+                       "Enter your choice : ");
+                scanf(" %d", &selector1);
+
+                /* 2nd terminal switch case */
+                switch(selector1) {
+                    case 1:
+                        printf("Ny proces");
+                        break;
+                    case 2:
+                        printf("Rediger proces");
+                        break;
+                    case 3:
+                        printf("Slet proces");
+                        break;
+                    case 4:
+                        system("cls");
+                        printf("Du har valgt Afslut model\n");
+                        printf("For hele modellen:"
+                               "1. Total count\n"
+                               "For hver proces:\n"
+                               "2. Ideal cycle time\n"
+                               "3. Data for defekte varer\n"
+                               "4. Data for uplanlagte stop\n"
+                               "5. Koer simulering\n"
+                               "6. Gaa til main menu\n"
+                               "7. Luk program\n");
+                        scanf(" %d", &selector3);
+                        /* 3rd terminal switch case */
+                        switch(selector3) {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;
+                            case 6:
+                                system("cls");
+
+                                break;
+                            case 7:
+                                system("cls");
+                                printf("Programmet lukker nu ned.\n");
+                                exit(1);
+                                break;
+                        }
+                        break;
+                    case 5:
+                        printf("Gaa til main menu");
+                        break;
+                    case 6:
+                        printf("Luk program");
+                        break;
+                }
+                secondMenu();
+                break;
+            /* Manual */
+            case 2:
+                system("cls");
+                printf("Dette er manualen til programmet.\n"
+                       "Her kommer ting til at staa som jeg ikke kender til endnu\n"
+                       "For at komme tilbage til main menu, skal du trykke paa 4: ");
+                scanf(" %d", selector);
+                if(selector == 4) {
+                    //skal koyra mainMenu umaftur
+                    mainMenu();
+                }
+               break;
+            /* Luk program */
+            case 3:
+                system("cls");
+                printf("Programmet lukker nu ned.\n");
+                exit(1);
+                break;
+        }
+}
+
+void secondMenu() {
+
+}
+
+
