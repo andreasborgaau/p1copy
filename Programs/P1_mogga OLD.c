@@ -2,8 +2,6 @@
 #include <stdlib.h>
 
 #define MAX_POSITION 3
-#define MAX_POS_MODEL 5
-#define MAX_POS_FINISH 7
 #define MIN_POSITION 1
 #define ARROW_UP 72
 #define ARROW_DOWN 80
@@ -35,7 +33,7 @@ int mainMenu() {
         printArrow(3, position); printf("Quit program\n");
 
         mainSelector = getch();
-        position = readInput(mainSelector, position, MAX_POSITION, MAX_POSITION);
+        position = readInput(mainSelector, position, 1, 3);
     }
 
     /* mainMenu switch case */
@@ -73,7 +71,7 @@ int modelMenu() {
         printArrow(5, position); printf("Quit program\n");
 
         modelSelector = getch();
-        position = readInput(modelSelector, position, MIN_POSITION, MAX_POS_MODEL);
+        position = readInput(modelSelector, position, 1, 5);
     }
     /* modelMenu switch case */
     switch(position) {
@@ -116,7 +114,7 @@ int finishMenu() {
         printArrow(7, position); printf("Quit program\n");
 
         finishSelector = getch();
-        position = readInput(finishSelector, position, MIN_POSITION, MAX_POS_FINISH);
+        position = readInput(finishSelector, position, 1, 7);
     }
     /* finish model switch case */
     switch(finishSelector) {
