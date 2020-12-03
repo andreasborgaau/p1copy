@@ -1,0 +1,10 @@
+You have chosen to see the manual:
+
+This manual will illustrate how the software works. Here you can find what the different options do and so forth.
+You can at anytime direct yourself to the manual, anywhere in the program.
+
+To navigate through the program, you use the arrows up and down, to choose which menu you want to select. 
+When the arrow is on the menu you want to open, then you press enter.
+You have, as said before, the ability to go back to the main menu or even quit the program at anytime. ((skriva hvussu tað hendur...))
+
+
