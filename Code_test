@@ -28,8 +28,9 @@ void mainMenu() {
         switch(selector) {
             /* Modeler system */
             case 1:
-                system("cls");
-                printf("Du har valgt at modelere system.\n"
+                do{
+                    system("cls");
+                    printf("Du har valgt at modelere system.\n"
                        "1. Ny proces\n"
                        "2. Rediger proces\n"
                        "3. Slet proces\n"
@@ -37,7 +38,9 @@ void mainMenu() {
                        "5. Gaa til main menu\n"
                        "6. Luk program\n"
                        "Enter your choice : ");
-                scanf(" %d", &selector1);
+                    scanf(" %d", &selector1);
+                }while(selector1 < 1 || selector1 > 3);
+                
 
                 /* 2nd terminal switch case */
                 switch(selector1) {
