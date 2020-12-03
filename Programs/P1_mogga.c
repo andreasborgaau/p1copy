@@ -11,22 +11,21 @@
 #define ESC_KEY 27
 
 /* Function prototype declaration */
-int mainMenu();
-int modelMenu();
-int finishMenu();
-int readInput();
-void printArrow();
-void manual();
+int mainMenu(void);
+int modelMenu(void);
+int finishMenu(void);
+int readInput(int, int, int, int);
+void printArrow(int, int);
+void manual(void);
 
 int main(void) {
-
     mainMenu();
     return EXIT_SUCCESS;
 }
 
 /* Funktionsliste */
-int mainMenu() {
-    int num, i, mainSelector=0, modelSelector, finishSelector, position=1;
+int mainMenu(void) {
+    int mainSelector=0, position=1;
     /* Menu selector */
     while(mainSelector != ENTER_KEY) {
         system("cls");
@@ -35,7 +34,7 @@ int mainMenu() {
         printArrow(3, position); printf("Quit program\n");
 
         mainSelector = getch();
-        position = readInput(mainSelector, position, MAX_POSITION, MAX_POSITION);
+        position = readInput(mainSelector, position, MIN_POSITION, MAX_POSITION);
     }
 
     /* mainMenu switch case */
@@ -50,19 +49,19 @@ int mainMenu() {
             manual();
             printf("If you want to return to main menu, then press escape.");
             mainSelector = getch();
-            if(mainSelector = ESC_KEY)
+            if(mainSelector == ESC_KEY)
                 return mainMenu();
             break;
         case 3:
             /* Quit */
             system("cls");
             printf("The program has shut down.\n");
-            exit(1);
+            exit(EXIT_SUCCESS);
             break;
     }
 }
 
-int modelMenu() {
+int modelMenu(void) {
     int modelSelector, position=1;
     while(modelSelector != ENTER_KEY) {
         system("cls");
@@ -97,12 +96,12 @@ int modelMenu() {
             /* Quit */
             system("cls");
             printf("The program has shut down.\n");
-            exit(1);
+            exit(EXIT_SUCCESS);
             break;
     }
 }
 
-int finishMenu() {
+int finishMenu(void) {
     int finishSelector, position=1;
     while(finishSelector != ENTER_KEY){
         system("cls");
@@ -119,7 +118,7 @@ int finishMenu() {
         position = readInput(finishSelector, position, MIN_POSITION, MAX_POS_FINISH);
     }
     /* finish model switch case */
-    switch(finishSelector) {
+    switch(position) {
         case 1:
             /* Total count */
             break;
@@ -144,25 +143,25 @@ int finishMenu() {
             /* Quit */
             system("cls");
             printf("The program has shut down.\n");
-            exit(1);
+            exit(EXIT_SUCCESS);
             break;
     }
 }
 
 /* This function prints the manual on the screen. */
-void manual() {
+void manual(void) {
     FILE *filePointer;
     char c; 
   
-    // Open file 
+    /* Open file */
     filePointer = fopen("Manual", "r"); 
     if (filePointer == NULL) { 
         printf("Can not open file \n"); 
-        exit(0); 
+        exit(EXIT_FAILURE);
     } 
   
     c = fgetc(filePointer);
-    // Read contents from file 
+    /* Read contents from file */
     while (c != EOF) { 
         printf ("%c", c);
         c = fgetc(filePointer);
