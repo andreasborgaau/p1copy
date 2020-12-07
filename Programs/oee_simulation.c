@@ -170,7 +170,7 @@ void manual(void) {
     char c; 
   
     /* Open file */
-    filePointer = fopen("Manual", "r"); 
+    filePointer = fopen("manual", "r"); 
     if (filePointer == NULL) { 
         printf("Can not open file \n"); 
         exit(EXIT_FAILURE);

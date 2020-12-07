@@ -1,0 +1,4 @@
+oee_simulation.exe: oee_simulation.c
+    gcc -Wall -pedantic -ansi -lm oee_simulation.c -o oee_simulation.exe
+clean:
+    rm oee_simulation.exe
