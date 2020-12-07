@@ -15,4 +15,4 @@ calculate_functions.o: calculate_functions.h
     CC $(TARGET) -lm -c calculate_functions.c
 
 clean:
-    $(RM) *.o oee_simulation.out *~
+    rm *.o oee_simulation.out *~
