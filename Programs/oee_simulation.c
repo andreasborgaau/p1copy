@@ -26,7 +26,6 @@ double calculatePerformance();
 double calculateQuality();
 void calculateOee();
 
-
 int main(void) {
     mainMenu();
     return EXIT_SUCCESS;
