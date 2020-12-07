@@ -1,0 +1,18 @@
+CC = gcc
+CFLAGS = -Wall -pedantic -ansi
+TARGET = oee_simulation
+
+$(TARGET).out: menu.o model_system.o calculate_functions.o main.c
+    CC $(CFLAGS) -o $(TARGET) menu.o model_system.o calculate_functions.o main.c
+
+menu.o: menu.h
+    CC $(CFLAGS) -c menu.c
+
+model_system.o: model_system.h
+    CC $(TARGET) -c model_system.c
+
+calculate_functions.o: calculate_functions.h
+    CC $(TARGET) -lm -c calculate_functions.c
+
+clean:
+    rm *.o oee_simulation.out *~

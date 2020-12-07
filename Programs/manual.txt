@@ -1,0 +1,19 @@
+You have chosen the manual:
+
+This manual will illustrate how the software works. Here you can find what the different options do and so forth.
+You can at anytime direct yourself to the manual, anywhere in the program.
+
+To navigate through the program, you use the arrows up and down, to choose which menu you want to select. 
+When the arrow is on the option you want to open, press enter.
+You have, as said before, the ability to go back to the main menu or even quit the program at anytime. 
+This is done by using the "go back" options in the menu.
+
+In this program there are three menues, the main menu, model menu and finish menu. in the main menu, 
+you can go to model system, see the manual and quit the program. When you have chosen model system, you have five menu options.
+The first one is "New process". Here you are able to make new processes and determine how many processes your manufacturing process has.
+The second option is "Delete process". Here you are able to delete the processes you have made.
+The third one is "Finish model". If you are done making new processes, then you select this option and it will take you to the final menu, which is finish menu.
+The fourth option is "Go back to main menu", this option will take you to the main menu.
+The fifth option is "Quit program", and will shut the program down.
+
+When you have added all your processes, and chosen the finish menu. You have seven options...

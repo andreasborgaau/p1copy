@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #define MAX_POS_FINISH 7
 #define MAX_POS_MODEL 5
@@ -10,27 +9,6 @@
 #define ARROW_UP 72
 #define ESC_KEY 27
 #define ENTER_KEY 13
-
-/* Function prototype declaration */
-int mainMenu(void);
-int modelMenu(void);
-int finishMenu(void);
-int readInput(int, int, int, int);
-void printArrow(int, int);
-void manual(void);
-void newProcess(int*);
-void deleteProcess();
-double calculateRunTime();
-double calculateAvailability();
-double calculatePerformance();
-double calculateQuality();
-void calculateOee();
-
-
-int main(void) {
-    mainMenu();
-    return EXIT_SUCCESS;
-}
 
 /* Funktionsliste */
 int mainMenu(void) {
@@ -170,7 +148,7 @@ void manual(void) {
     char c; 
   
     /* Open file */
-    filePointer = fopen("Manual", "r"); 
+    filePointer = fopen("manual", "r"); 
     if (filePointer == NULL) { 
         printf("Can not open file \n"); 
         exit(EXIT_FAILURE);
@@ -204,54 +182,4 @@ void printArrow (int realPosition, int arrowPosition) {
         printf(">    ");
     else
         printf("  ");
-}
-
-void newProcess(int *count) {
-    int radius = 4;
-    int i,j;
-    for (i=0; i<=2*radius; i++) {
-        for (j=0; j<=2*radius; j++) {
-            double distance = sqrt((double)(i-radius)*(i-radius) + (j-radius)*(j-radius));
-            if (distance>radius-0.5 && distance<radius+0.5)
-                printf("*");
-            else 
-                printf(" ");
-        }
-        printf("\n");
-    }
-    printf("    |\n"
-           "    |\n");
-    *count += 1;
-}
-
-void deleteProcess() {
-
-}
-
-double calculateRunTime(int plannedProdTime, int stopTime) {
-    int runTime;
-    runTime = plannedProdTime - stopTime;
-    return runTime;
-}
-
-double calculateAvailability(double runtime, double plannedProdTime) {
-    double availability;
-    availability = runtime / plannedProdTime;
-    return availability;
-}
-
-double calculatePerformance(int runTime, int goodCount, int idealcycletime) {
-    double performance;
-    performance = (idealcycletime * goodCount) / runTime;
-    return performance;
-}
-
-double calculateQuality(int goodCount, int totalCount) {
-    double Quality;
-    Quality = goodCount / totalCount;
-    return Quality;
-}
-
-void calculateOee() {
-
 }
