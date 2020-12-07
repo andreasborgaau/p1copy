@@ -12,7 +12,7 @@ model_system.o: model_system.h
     CC $(TARGET) -c model_system.c
 
 calculate_functions.o: calculate_functions.h
-    CC $(TARGET) -c calculate_functions.c
+    CC $(TARGET) -lm -c calculate_functions.c
 
 clean:
     $(RM) *.o oee_simulation.out *~

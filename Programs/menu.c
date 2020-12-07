@@ -10,14 +10,6 @@
 #define ESC_KEY 27
 #define ENTER_KEY 13
 
-int mainMenu(void);
-int modelMenu(void);
-int finishMenu(void);
-int readInput(int, int, int, int);
-void printArrow(int, int);
-void manual(void);
-void newProcess(int*);
-
 /* Funktionsliste */
 int mainMenu(void) {
     int mainSelector=0, position=1;
