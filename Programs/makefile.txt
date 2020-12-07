@@ -1,4 +1,8 @@
-oee_simulation.out: oee_simulation.c
-    gcc -Wall -pedantic -ansi -lm oee_simulation.c -o oee_simulation.out
+CC = gcc
+CFLAGS = -Wall -pedantic -ansi
+TARGET = oee_simulation
+
+$(TARGET).out: oee_simulation.c
+    gcc $(CFLAGS) oee_simulation.c -o oee_simulation.out
 clean:
-    rm oee_simulation.exe
+    $(RM) *.o main.exe*~
