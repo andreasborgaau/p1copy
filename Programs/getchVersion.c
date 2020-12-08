@@ -19,11 +19,11 @@ int mainMenu(void);
 int modelMenu(void);
 int finishMenu(void);
 void manual(void);
-void newProcess(int*);
+void newProcess(int);
 void initTermios(void);
 void resetTermios(void);
 char getch(void); 
- 
+
 int main(void) {
     mainMenu();
     return EXIT_SUCCESS;
@@ -35,7 +35,7 @@ int mainMenu(void) {
 
     do{
         system("clear");
-        printf("1. Modeler system \n"
+        printf("1. Model system \n"
                "2. Manual\n"
                "3. Luk program\n");
 
@@ -72,7 +72,7 @@ int mainMenu(void) {
 }
 
 int modelMenu(void) {
-    int modelSelector, count=0, sumCount=0;
+    int modelSelector, amount_of_processes;
     int quit = 0;
 
      do{
@@ -92,13 +92,12 @@ int modelMenu(void) {
         case ASCII_one:
             /* New process */
             system("clear");
-            do{
-                count = 0;
-                printf("\n");
-                newProcess(&count);
-                sumCount += count;
-                printf("Amount of processes: %d", count);
-            } while(quit != 2);
+            printf("Enter the amount of processes: ");
+            scanf(" %d",&amount_of_processes);
+
+            printf("\n");
+            newProcess(amount_of_processes);
+
 
             return modelMenu();
             break;
@@ -197,22 +196,21 @@ void manual(void) {
     fclose(filePointer); 
 }
 
-void newProcess(int *count) {
-    int radius = 4;
-    int i,j;
-    for (i=0; i<=2*radius; i++) {
-        for (j=0; j<=2*radius; j++) {
-            double distance = sqrt((double)(i-radius)*(i-radius) + (j-radius)*(j-radius));
-            if (distance>radius-0.5 && distance<radius+0.5)
-                printf("*");
-            else 
-                printf(" ");
-        }
-        printf("\n");
+void newProcess(int amount_of_processes)
+{
+    int i;
+
+    for(i = 1; i <= amount_of_processes; i++)
+    {
+    printf("* * * * *\n");
+    printf("*       *\n");
+    printf("*%4d   *\n", amount_of_processes);
+    printf("*       *\n");
+    printf("* * * * *\n");
+
+    if(i != amount_of_processes)
+        printf("  |\n");
     }
-    printf("    |\n"
-           "    |\n");
-    *count += 1;
 }
 
 void initTermios(void) 
