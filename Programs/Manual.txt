@@ -3,8 +3,7 @@ You have chosen the manual:
 This manual will illustrate how the software works. Here you can find what the different options do and so forth.
 You can at anytime direct yourself to the manual, anywhere in the program.
 
-To navigate through the program, you use the arrows up and down, to choose which menu you want to select. 
-When the arrow is on the option you want to open, press enter.
+To navigate through the program, you press the number of the corressponding option to choose which menu you want to select. 
 You have, as said before, the ability to go back to the main menu or even quit the program at anytime. 
 This is done by using the "go back" options in the menu.
 
