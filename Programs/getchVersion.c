@@ -97,8 +97,6 @@ int modelMenu(void) {
 
             printf("\n");
             newProcess(amount_of_processes);
-
-
             return modelMenu();
             break;
         case ASCII_two:
