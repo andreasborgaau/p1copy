@@ -3,6 +3,7 @@
 #include <math.h>
 #include <termios.h>
 
+#define ASCII_newline 10
 #define ASCII_one 49
 #define ASCII_two 50
 #define ASCII_three 51
@@ -11,13 +12,16 @@
 #define ASCII_six 54
 #define ASCII_seven 55
 
+#define ANSI_UNDERLINED_PRE  "\033[4m"
+#define ANSI_UNDERLINED_POST "\033[0m"
+
 
 static struct termios old, current;
 
 /* Function prototype declaration */
-int mainMenu(void);
-int modelMenu(void);
-int finishMenu(void);
+int mainMenu(int*);
+int modelMenu(int*);
+int finishMenu(int*);
 void manual(void);
 void newProcess(int*);
 void initTermios(void);
@@ -25,19 +29,22 @@ void resetTermios(void);
 char getch(void); 
 
 int main(void) {
-    mainMenu();
+    int amount_of_processes = 0;
+
+    mainMenu(&amount_of_processes);
     return EXIT_SUCCESS;
 }
 
-int mainMenu(void) {
+int mainMenu(int *amount_of_processes) {
     int mainSelector=0;
     /* Menu selector */
 
     do{
         system("clear");
+        printf(ANSI_UNDERLINED_PRE "Main Menu" ANSI_UNDERLINED_POST "\n\n");
         printf("1. Model system \n"
                "2. Manual\n"
-               "3. Luk program\n");
+               "3. Quit program\n");
 
         mainSelector = getch();
 
@@ -48,18 +55,19 @@ int mainMenu(void) {
     switch(mainSelector) {
         case ASCII_one:
             /* Model system */
-            modelMenu();
+            modelMenu(amount_of_processes);
             break;
         case ASCII_two:
             /* Manual */
             system("clear");
             manual();
-            printf("\n\n1. Return to Main Menu\n");
+            printf("\n1. Return to Main Menu");
             
-            mainSelector = getch();
-
-            if(mainSelector == ASCII_one)
-                return mainMenu();
+            do{
+                mainSelector = getch();
+                if(mainSelector == ASCII_one)
+                    return mainMenu(amount_of_processes);
+            } while (mainSelector != ASCII_one);
             break;
         case ASCII_three:
             /* Quit */
@@ -71,49 +79,47 @@ int mainMenu(void) {
     return EXIT_SUCCESS;
 }
 
-int modelMenu() {
+int modelMenu(int *amount_of_processes) {
     int modelSelector = 0;
-    int amount_of_processes = 0, hej;
 
      do{
         system("clear");
-        printf("1. New process\n");
-        printf("2. Delete process\n");
-        printf("3. Finish model\n");
-        printf("4. Go back\n");
-        printf("5. Quit program\n");
+        printf(ANSI_UNDERLINED_PRE "Model Menu" ANSI_UNDERLINED_POST "\n\n");
+        printf("1. Model manufacturing system\n");
+        printf("2. Finish model\n");
+        printf("3. Go back\n");
+        printf("4. Quit program\n");
 
         modelSelector = getch();
         
 
-        }while(modelSelector < ASCII_one || modelSelector > ASCII_five);
+        }while(modelSelector < ASCII_one || modelSelector > ASCII_four);
 
     /* modelMenu switch case */
     switch(modelSelector) {
         case ASCII_one:
             /* New process */
+
             system("clear");
-            newProcess(&amount_of_processes);
-
-            scanf(" %d", &modelSelector); /* Få getch() til at virke her. */
-            printf("modelselector = %d", modelSelector);
-
-            if(modelSelector == 1)
-                    return modelMenu();
+            newProcess(amount_of_processes);
+            
+            do{
+                modelSelector = getch();
+                if(modelSelector == ASCII_newline)
+                    modelSelector = getch();
+                if(modelSelector == ASCII_one)
+                    return modelMenu(amount_of_processes);
+            } while(modelSelector != ASCII_one);
             break;
         case ASCII_two:
-            /* Delete process */
-            printf("Amount of processes = %d", amount_of_processes);
+            /* Finish model */
+            finishMenu(amount_of_processes);
             break;
         case ASCII_three:
-            /* Finish model */
-            finishMenu();
+            /* Back to mainMenu */
+            return mainMenu(amount_of_processes);
             break;
         case ASCII_four:
-            /* Back to mainMenu */
-            return mainMenu();
-            break;
-        case ASCII_five:
             /* Quit */
             system("clear");
             printf("The program has shut down.\n");
@@ -124,13 +130,13 @@ int modelMenu() {
     return EXIT_SUCCESS;
 }
 
-int finishMenu(void) {
+int finishMenu(int *amount_of_processes) {
     int finishSelector;
 
         do{
             system("clear");
-            printf("You have chosen to finish model.\n\n");
-
+            printf(ANSI_UNDERLINED_PRE "Finish Menu" ANSI_UNDERLINED_POST "\n\n");
+            printf("amount of processes: %d\n", *amount_of_processes);
             printf("1. Total count\n");
             printf("2. Ideal cycle time\n");
             printf("3. Data for defect products\n");
@@ -161,7 +167,7 @@ int finishMenu(void) {
             break;
         case ASCII_six:
             /* Go back to model system */
-            return modelMenu();
+            return modelMenu(amount_of_processes);
             break;
         case ASCII_seven:
             /* Quit */
@@ -216,9 +222,8 @@ void newProcess(int *amount_of_processes)
         printf("    |\n");
     }
 
-    printf("1. Return to model menu\n");
+    printf("1. Return to main menu\n");
 
-    
 }
 
 void initTermios(void) 
