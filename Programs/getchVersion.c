@@ -19,7 +19,7 @@ int mainMenu(void);
 int modelMenu(void);
 int finishMenu(void);
 void manual(void);
-void newProcess(int);
+void newProcess(int*);
 void initTermios(void);
 void resetTermios(void);
 char getch(void); 
@@ -71,9 +71,9 @@ int mainMenu(void) {
     return EXIT_SUCCESS;
 }
 
-int modelMenu(void) {
-    int modelSelector, amount_of_processes;
-    int quit = 0;
+int modelMenu() {
+    int modelSelector = 0;
+    int amount_of_processes = 0, hej;
 
      do{
         system("clear");
@@ -84,6 +84,7 @@ int modelMenu(void) {
         printf("5. Quit program\n");
 
         modelSelector = getch();
+        
 
         }while(modelSelector < ASCII_one || modelSelector > ASCII_five);
 
@@ -92,16 +93,17 @@ int modelMenu(void) {
         case ASCII_one:
             /* New process */
             system("clear");
-            printf("Enter the amount of processes: ");
-            scanf(" %d",&amount_of_processes);
+            newProcess(&amount_of_processes);
 
-            printf("\n");
-            newProcess(amount_of_processes);
-            return modelMenu();
+            scanf(" %d", &modelSelector); /* Få getch() til at virke her. */
+            printf("modelselector = %d", modelSelector);
+
+            if(modelSelector == 1)
+                    return modelMenu();
             break;
         case ASCII_two:
             /* Delete process */
-            printf("Delete process");
+            printf("Amount of processes = %d", amount_of_processes);
             break;
         case ASCII_three:
             /* Finish model */
@@ -194,21 +196,29 @@ void manual(void) {
     fclose(filePointer); 
 }
 
-void newProcess(int amount_of_processes)
+void newProcess(int *amount_of_processes)
 {
     int i;
 
-    for(i = 1; i <= amount_of_processes; i++)
+    printf("Enter the amount of processes: ");
+    scanf(" %d", amount_of_processes);
+    printf("\n");
+
+    for(i = 1; i <= *amount_of_processes; i++)
     {
     printf("* * * * *\n");
     printf("*       *\n");
-    printf("*%4d   *\n", amount_of_processes);
+    printf("*%4d   *\n", i);
     printf("*       *\n");
     printf("* * * * *\n");
 
-    if(i != amount_of_processes)
-        printf("  |\n");
+    if(i != *amount_of_processes)
+        printf("    |\n");
     }
+
+    printf("1. Return to model menu\n");
+
+    
 }
 
 void initTermios(void) 
