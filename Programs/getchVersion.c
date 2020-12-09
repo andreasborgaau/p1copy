@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <termios.h>
+#include <time.h>
 
 #define ASCII_newline 10
 #define ASCII_one 49
@@ -27,6 +28,7 @@ void newProcess(int*);
 void initTermios(void);
 void resetTermios(void);
 char getch(void); 
+
 int main(void) {
     int amount_of_processes = 0;
 
@@ -98,7 +100,6 @@ int modelMenu(int *amount_of_processes) {
     switch(modelSelector) {
         case ASCII_one:
             /* New process */
-
             system("clear");
             newProcess(amount_of_processes);
             
@@ -115,7 +116,7 @@ int modelMenu(int *amount_of_processes) {
             finishMenu(amount_of_processes);
             break;
         case ASCII_three:
-            /* Back to mainMenu */
+            /* Go back */
             return mainMenu(amount_of_processes);
             break;
         case ASCII_four:
@@ -151,6 +152,7 @@ int finishMenu(int *amount_of_processes) {
     switch(finishSelector) {
         case ASCII_one:
             /* Total count */
+
             break;
         case ASCII_two:
             /* Ideal cycle time */
@@ -165,7 +167,7 @@ int finishMenu(int *amount_of_processes) {
             /* Run simulation */
             break;
         case ASCII_six:
-            /* Go back to model system */
+            /* Go back */
             return modelMenu(amount_of_processes);
             break;
         case ASCII_seven:
