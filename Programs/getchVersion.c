@@ -221,7 +221,7 @@ void newProcess(int *amount_of_processes)
         printf("    |\n");
     }
 
-    printf("1. Return to main menu\n");
+    printf("1. Return to model menu\n");
 
 }
 
