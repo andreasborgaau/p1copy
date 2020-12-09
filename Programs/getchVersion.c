@@ -27,7 +27,6 @@ void newProcess(int*);
 void initTermios(void);
 void resetTermios(void);
 char getch(void); 
-
 int main(void) {
     int amount_of_processes = 0;
 
