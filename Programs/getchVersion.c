@@ -3,30 +3,8 @@
 #include <math.h>
 #include <termios.h>
 #include <time.h>
-
-#define ASCII_newline 10
-#define ASCII_one 49
-#define ASCII_two 50
-#define ASCII_three 51
-#define ASCII_four 52
-#define ASCII_five 53
-#define ASCII_six 54
-#define ASCII_seven 55
-
-#define ANSI_UNDERLINED_PRE  "\033[4m"
-#define ANSI_UNDERLINED_POST "\033[0m"
-
-static struct termios old, current;
-
-/* Function prototype declaration */
-int mainMenu(int*);
-int modelMenu(int*);
-int finishMenu(int*);
-void manual(void);
-void newProcess(int*);
-void initTermios(void);
-void resetTermios(void);
-char getch(void); 
+#include "constants.h"
+#include "menu.h"
 
 int main(void) {
     int amount_of_processes = 0;
@@ -175,7 +153,7 @@ int finishMenu(int *amount_of_processes) {
 void manual(void) {
     FILE *filePointer;
     char c; 
-  
+
     /* Open file */
     filePointer = fopen("Manual", "r"); 
     if (filePointer == NULL) { 
@@ -189,7 +167,6 @@ void manual(void) {
         printf ("%c", c);
         c = fgetc(filePointer);
     } 
-
     fclose(filePointer); 
 }
 
@@ -210,9 +187,7 @@ void newProcess(int *amount_of_processes) {
     if(i != *amount_of_processes)
         printf("    |\n");
     }
-
     printf("1. Return to model menu\n");
-
 }
 
 void initTermios(void) {
