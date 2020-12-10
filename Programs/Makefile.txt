@@ -1,9 +1,17 @@
-CC = gcc
 CFLAGS = -Wall -pedantic -ansi
 TARGET = getchVersion
 
-$(TARGET).out: $(TARGET).c
-    $(CC) $(CFLAGS) -o $(TARGET)
+$(TARGET).out: menu.o model_system.o calculate_functions.o main.c
+    gcc $(CFLAGS) -o $(TARGET) menu.o model_system.o calculate_functions.o main.c
+
+menu.o: menu.h
+    gcc $(CFLAGS) -c menu.c
+
+model_system.o: model_system.h
+    gcc $(TARGET) -c model_system.c
+
+calculate_functions.o: calculate_functions.h
+    gcc $(TARGET) -lm -c calculate_functions.c
 
 clean:
-    $(RM) $(TARGET).out *.o *~
+    rm *.o oee_simulation.out *~
