@@ -16,7 +16,6 @@
 #define ANSI_UNDERLINED_PRE  "\033[4m"
 #define ANSI_UNDERLINED_POST "\033[0m"
 
-
 static struct termios old, current;
 
 /* Function prototype declaration */
@@ -48,8 +47,6 @@ int mainMenu(int *amount_of_processes) {
                "3. Quit program\n");
 
         mainSelector = getch();
-
-        
         }while(mainSelector < ASCII_one || mainSelector > ASCII_three);
 
     /* mainMenu switch case */
@@ -63,7 +60,6 @@ int mainMenu(int *amount_of_processes) {
             system("clear");
             manual();
             printf("\n1. Return to Main Menu");
-            
             do{
                 mainSelector = getch();
                 if(mainSelector == ASCII_one)
@@ -83,7 +79,7 @@ int mainMenu(int *amount_of_processes) {
 int modelMenu(int *amount_of_processes) {
     int modelSelector = 0;
 
-     do{
+    do{
         system("clear");
         printf(ANSI_UNDERLINED_PRE "Model Menu" ANSI_UNDERLINED_POST "\n\n");
         printf("1. Model manufacturing system\n");
@@ -92,9 +88,7 @@ int modelMenu(int *amount_of_processes) {
         printf("4. Quit program\n");
 
         modelSelector = getch();
-        
-
-        }while(modelSelector < ASCII_one || modelSelector > ASCII_four);
+    } while(modelSelector < ASCII_one || modelSelector > ASCII_four);
 
     /* modelMenu switch case */
     switch(modelSelector) {
@@ -102,7 +96,6 @@ int modelMenu(int *amount_of_processes) {
             /* New process */
             system("clear");
             newProcess(amount_of_processes);
-            
             do{
                 modelSelector = getch();
                 if(modelSelector == ASCII_newline)
@@ -126,33 +119,31 @@ int modelMenu(int *amount_of_processes) {
             exit(EXIT_SUCCESS);
             break;
     }
-    
     return EXIT_SUCCESS;
 }
 
 int finishMenu(int *amount_of_processes) {
     int finishSelector;
 
-        do{
-            system("clear");
-            printf(ANSI_UNDERLINED_PRE "Finish Menu" ANSI_UNDERLINED_POST "\n\n");
-            printf("amount of processes: %d\n", *amount_of_processes);
-            printf("1. Total count\n");
-            printf("2. Ideal cycle time\n");
-            printf("3. Data for defect products\n");
-            printf("4. Data for unplanned stop\n");
-            printf("5. Run simulation\n");
-            printf("6. Go back\n");
-            printf("7. Quit program\n");
+    do{
+        system("clear");
+        printf(ANSI_UNDERLINED_PRE "Finish Menu" ANSI_UNDERLINED_POST "\n\n");
+        printf("amount of processes: %d\n", *amount_of_processes);
+        printf("1. Total count\n");
+        printf("2. Ideal cycle time\n");
+        printf("3. Data for defect products\n");
+        printf("4. Data for unplanned stop\n");
+        printf("5. Run simulation\n");
+        printf("6. Go back\n");
+        printf("7. Quit program\n");
 
-            finishSelector = getch();
+        finishSelector = getch();
+    } while(finishSelector < ASCII_one || finishSelector > ASCII_seven);
 
-            }while(finishSelector < ASCII_one || finishSelector > ASCII_seven);
     /* finish model switch case */
     switch(finishSelector) {
         case ASCII_one:
             /* Total count */
-
             break;
         case ASCII_two:
             /* Ideal cycle time */
@@ -177,7 +168,6 @@ int finishMenu(int *amount_of_processes) {
             exit(EXIT_SUCCESS);
             break;
     }
-
     return EXIT_SUCCESS;
 }
 
@@ -192,7 +182,7 @@ void manual(void) {
         printf("Can not open file \n"); 
         exit(EXIT_FAILURE);
     } 
-  
+
     c = fgetc(filePointer);
     /* Read contents from file */
     while (c != EOF) { 
@@ -203,16 +193,14 @@ void manual(void) {
     fclose(filePointer); 
 }
 
-void newProcess(int *amount_of_processes)
-{
+void newProcess(int *amount_of_processes) {
     int i;
 
     printf("Enter the amount of processes: ");
     scanf(" %d", amount_of_processes);
     printf("\n");
 
-    for(i = 1; i <= *amount_of_processes; i++)
-    {
+    for(i = 1; i <= *amount_of_processes; i++) {
     printf("* * * * *\n");
     printf("*       *\n");
     printf("*%4d   *\n", i);
@@ -227,8 +215,7 @@ void newProcess(int *amount_of_processes)
 
 }
 
-void initTermios(void) 
-{
+void initTermios(void) {
   tcgetattr(0, &old); /* grab old terminal i/o settings */
   current = old; /* make new settings same as old settings */
   current.c_lflag &= ~ICANON; /* disable buffered i/o */
@@ -236,14 +223,12 @@ void initTermios(void)
 }
 
 /* Restore old terminal i/o settings */
-void resetTermios(void) 
-{
+void resetTermios(void) {
   tcsetattr(0, TCSANOW, &old);
 }
 
 /* Read 1 character - echo defines echo mode */
-char getch(void) 
-{
+char getch(void) {
   char ch;
   initTermios();
   ch = getchar();
