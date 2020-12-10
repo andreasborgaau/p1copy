@@ -1,21 +1,22 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <stdio.h>
 
-void newProcess(int *count) {
-    int radius = 4;
-    int i,j;
-    for (i=0; i<=2*radius; i++) {
-        for (j=0; j<=2*radius; j++) {
-            double distance = sqrt((double)(i-radius)*(i-radius) + (j-radius)*(j-radius));
-            if (distance>radius-0.5 && distance<radius+0.5)
-                printf("*");
-            else 
-                printf(" ");
-        }
-        printf("\n");
+void newProcess(int *amount_of_processes) {
+    int i;
+
+    printf("Enter the amount of processes: ");
+    scanf(" %d", amount_of_processes);
+    printf("\n");
+
+    for(i = 1; i <= *amount_of_processes; i++) {
+    printf("* * * * *\n");
+    printf("*       *\n");
+    printf("*%4d   *\n", i);
+    printf("*       *\n");
+    printf("* * * * *\n");
+
+    if(i != *amount_of_processes)
+        printf("    |\n");
     }
-    printf("    |\n"
-           "    |\n");
-    *count += 1;
+    printf("1. Return to model menu\n");
 }
