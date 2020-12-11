@@ -8,22 +8,7 @@
 #include <termios.h>
 #include <time.h>
 
-static struct termios old, current;
 
-typedef struct{
-    int total_count;
-    int ideal_cycle_time;
-    double defectsArr[NUM_SIM];
-    double stopsArr[NUM_SIM];
-    double mean_defects;
-    double std_deviation_defects;
-    double lambda_defects;
-    double mean_US;
-    double std_deviation_US;
-    double lambda_US;
-    
-
-} process;
 
 int mainMenu(int*);
 int modelMenu(int*);
@@ -136,6 +121,11 @@ int finishMenu (int *amount_of_processes){
     printf("Total amount of processes: %d\n", *amount_of_processes);
 
     for(i = 0; i < *amount_of_processes; i++) {
+        processes[i].mean_defects = -1;
+        processes[i].lambda_defects = -1;
+        processes[i].mean_US = -1;
+        processes[i].lambda_US = -1;
+
         system("clear");
 
         printf("Current process: %d \n\n", i+1);
