@@ -1,14 +1,17 @@
-manu_sim: model_system.o calculate_functions.o main.o
-	gcc -Wall -pedantic -ansi -lm -o manu_sim.out model_system.o calculate_functions.o main.o
+manu_sim: model_system.o calculate_functions.o inv_tran_sampling.o main.o
+	gcc -Wall -pedantic -ansi -o manu_sim.out model_system.o calculate_functions.o inv_tran_sampling.o main.o -lm
 
-main.o: model_system.h calculate_functions.h constants.h
-	gcc -Wall -pedantic -ansi -c main.c
+main.o: model_system.h calculate_functions.h constants.h inv_tran_sampling.h
+	gcc -Wall -pedantic -ansi -lm -c main.c
 
 calculate_functions.o: calculate_functions.h
 	gcc -Wall -pedantic -ansi -c calculate_functions.c
 
 model_system.o: model_system.h
 	gcc -Wall -pedantic -ansi -c model_system.c
+
+inv_tran_sampling.o: inv_tran_sampling.h
+	gcc -Wall -pedantic -ansi -lm -c inv_tran_sampling.c
 
 clean:
 	rm manu_sim model_system.o calculate_functions.o

@@ -1,6 +1,7 @@
 #include "constants.h"
 #include "model_system.h"
 #include "calculate_functions.h"
+#include "inv_tran_sampling.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,18 +9,20 @@
 #include <termios.h>
 #include <time.h>
 
-
+static struct termios old, current;
 
 int mainMenu(int*);
 int modelMenu(int*);
-int finishMenu(int*);
+int dataMenu(int*);
+int simulationMenu(process[], int*);
 void manual(void);
 void initTermios(void);
 void resetTermios(void);
 char getch(void);
+int quit(void);
 
 int main(void){
-int amount_of_processes = 0;
+    int amount_of_processes = 0;
 
     mainMenu(&amount_of_processes);
     return EXIT_SUCCESS;
@@ -58,9 +61,7 @@ int mainMenu(int *amount_of_processes) {
             break;
         case ASCII_three:
             /* Quit */
-            system("clear");
-            printf("The program has shut down.\n");
-            exit(EXIT_SUCCESS);
+            quit();
             break;
     }
     return EXIT_SUCCESS;
@@ -96,7 +97,7 @@ int modelMenu(int *amount_of_processes) {
             break;
         case ASCII_two:
             /* Finish model */
-            finishMenu(amount_of_processes);
+            dataMenu(amount_of_processes);
             break;
         case ASCII_three:
             /* Go back */
@@ -104,15 +105,13 @@ int modelMenu(int *amount_of_processes) {
             break;
         case ASCII_four:
             /* Quit */
-            system("clear");
-            printf("The program has shut down.\n");
-            exit(EXIT_SUCCESS);
+            quit();
             break;
     }
     return EXIT_SUCCESS;
 }
 
-int finishMenu (int *amount_of_processes){
+int dataMenu (int *amount_of_processes){
     int i, distribution_selector = 0;
 
     process *processes;
@@ -179,7 +178,9 @@ int finishMenu (int *amount_of_processes){
             scanf(" %lf", &processes[i].lambda_US);
         }
     }
-    return EXIT_SUCCESS;
+
+    free(processes);
+    return simulationMenu(processes, amount_of_processes);
 }
  
 
@@ -241,6 +242,38 @@ int finishMenu (int *amount_of_processes){
     return EXIT_SUCCESS;
 }*/
 
+int simulationMenu(process processes[] ,int *amount_of_processes) {
+    int simulationSelector = 0;
+
+    do{
+        system("clear");
+        printf(ANSI_UNDERLINED_PRE "Simulation" ANSI_UNDERLINED_POST "\n\n");
+        printf("1. Run simulation\n");
+        printf("2. Go back\n");
+        printf("3. Quit program\n");
+
+        simulationSelector = getch();
+    } while(simulationSelector < ASCII_one || simulationSelector > ASCII_three);
+
+    switch(simulationSelector) {
+        case ASCII_one:
+            /* Run simulation */
+            system("clear");
+            simulate(processes, amount_of_processes);           
+        case ASCII_two:
+            /* Go back */
+            return dataMenu(amount_of_processes);
+            break;
+        case ASCII_three:
+            /* Quit program */
+            quit();
+            break;
+
+    }
+    return EXIT_SUCCESS;
+}
+
+
 /* This function prints the manual on the screen. */
 void manual(void) {
     FILE *filePointer;
@@ -260,7 +293,7 @@ void manual(void) {
     while (c != EOF) { 
         printf ("%c", c);
         c = fgetc(filePointer);
-    } 
+    }
     fclose(filePointer); 
 }
 
@@ -283,4 +316,10 @@ char getch(void) {
   ch = getchar();
   resetTermios();
   return ch;
+}
+
+int quit(void) {
+    system("clear");
+    printf("The program has shut down.\n");
+    exit(EXIT_SUCCESS);
 }
