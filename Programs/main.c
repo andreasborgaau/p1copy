@@ -10,6 +10,21 @@
 
 static struct termios old, current;
 
+typedef struct{
+    int total_count;
+    int ideal_cycle_time;
+    double defectsArr[NUM_SIM];
+    double stopsArr[NUM_SIM];
+    double mean_defects;
+    double std_deviation_defects;
+    double lambda_defects;
+    double mean_US;
+    double std_deviation_US;
+    double lambda_US;
+    
+
+} process;
+
 int mainMenu(int*);
 int modelMenu(int*);
 int finishMenu(int*);
@@ -112,8 +127,74 @@ int modelMenu(int *amount_of_processes) {
     return EXIT_SUCCESS;
 }
 
-int finishMenu(int *amount_of_processes) {
-    int finishSelector;
+int finishMenu (int *amount_of_processes){
+    int i, distribution_selector = 0;
+
+    process *processes;
+    processes = malloc(*amount_of_processes * sizeof(int));
+
+    printf("Total amount of processes: %d\n", *amount_of_processes);
+
+    for(i = 0; i < *amount_of_processes; i++) {
+        system("clear");
+
+        printf("Current process: %d \n\n", i+1);
+
+        printf("Enter total count: ");
+        scanf(" %d", &processes[i].total_count);
+
+        printf("Enter ideal cycle time: ");
+        scanf(" %d", &processes[i].ideal_cycle_time);
+
+        printf("\nChoose type of probability distribution for defects:\n"
+               "1. Normal distribution\n"
+               "2. Exponential distribution\n");
+
+        distribution_selector = getch();
+        if(distribution_selector == ASCII_newline)
+            distribution_selector = getch();
+
+        if(distribution_selector == ASCII_one){
+            printf("\n\nEnter mean value: ");
+            scanf(" %lf", &processes[i].mean_defects);
+
+            printf("Enter standard deviation: ");
+            scanf(" %lf", &processes[i].std_deviation_defects);
+        }
+
+        if(distribution_selector == ASCII_two){
+            printf("Enter Lambda value: ");
+            scanf(" %lf", &processes[i].lambda_defects);
+        }
+
+        printf("\nChoose type of probability distribution for unplanned stops:\n"
+               "1. Normal distribution\n"
+               "2. Exponential distribution\n");
+
+        distribution_selector = getch();
+        if(distribution_selector == ASCII_newline)
+            distribution_selector = getch();
+
+
+        if(distribution_selector == ASCII_one){
+            printf("\nEnter mean value: ");
+            scanf(" %lf", &processes[i].mean_US);
+
+            printf("Enter standard deviation: ");
+            scanf(" %lf", &processes[i].std_deviation_US);
+        }
+
+        if(distribution_selector == ASCII_two){
+            printf("\nEnter Lambda value: ");
+            scanf(" %lf", &processes[i].lambda_US);
+        }
+    }
+    return EXIT_SUCCESS;
+}
+ 
+
+/*int finishMenu(int *amount_of_processes) {
+    int finishSelector, *total_count, *ideal_cycle_time;
 
     do{
         system("clear");
@@ -130,41 +211,52 @@ int finishMenu(int *amount_of_processes) {
         finishSelector = getch();
     } while(finishSelector < ASCII_one || finishSelector > ASCII_seven);
 
-    /* finish model switch case */
     switch(finishSelector) {
         case ASCII_one:
-            /* Total count */
+           
+            system("clear");
+            printf("Enter the total count: ");
+            scanf(" %d", total_count);
+            
             break;
         case ASCII_two:
-            /* Ideal cycle time */
+  
+            system("clear");
+            printf("Enter ideal cycle time: ");
+            scanf(" %d", ideal_cycle_time);
+
             break;
         case ASCII_three:
-            /* Defect products */
+            
+            system("clear");
+            printf("");
             break;
         case ASCII_four:
-            /* Unplanned stop */
+            
             break;
         case ASCII_five:
-            /* Run simulation */
+            
             break;
         case ASCII_six:
-            /* Go back */
+           
             return modelMenu(amount_of_processes);
             break;
         case ASCII_seven:
-            /* Quit */
+            
             system("clear");
             printf("The program has shut down.\n");
             exit(EXIT_SUCCESS);
             break;
     }
     return EXIT_SUCCESS;
-}
+}*/
 
 /* This function prints the manual on the screen. */
 void manual(void) {
     FILE *filePointer;
     char c; 
+
+    printf(ANSI_UNDERLINED_PRE "Manual" ANSI_UNDERLINED_POST "\n\n");
 
     /* Open file */
     filePointer = fopen("manual.txt", "r"); 
