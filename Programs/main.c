@@ -112,12 +112,15 @@ int modelMenu(int *amount_of_processes) {
 }
 
 int dataMenu (int *amount_of_processes){
-    int i, distribution_selector = 0;
+    int i, total_count, distribution_selector = 0;
 
     process *processes;
     processes = malloc(*amount_of_processes * sizeof(int));
 
     printf("Total amount of processes: %d\n", *amount_of_processes);
+
+    printf("Enter total count: ");
+    scanf(" %d", total_count);
 
     for(i = 0; i < *amount_of_processes; i++) {
         processes[i].mean_defects = -1;
@@ -128,9 +131,6 @@ int dataMenu (int *amount_of_processes){
         system("clear");
 
         printf("Current process: %d \n\n", i+1);
-
-        printf("Enter total count: ");
-        scanf(" %d", &processes[i].total_count);
 
         printf("Enter ideal cycle time: ");
         scanf(" %d", &processes[i].ideal_cycle_time);
@@ -182,65 +182,6 @@ int dataMenu (int *amount_of_processes){
     free(processes);
     return simulationMenu(processes, amount_of_processes);
 }
- 
-
-/*int finishMenu(int *amount_of_processes) {
-    int finishSelector, *total_count, *ideal_cycle_time;
-
-    do{
-        system("clear");
-        printf(ANSI_UNDERLINED_PRE "Finish Menu" ANSI_UNDERLINED_POST "\n\n");
-        printf("amount of processes: %d\n", *amount_of_processes);
-        printf("1. Total count\n");
-        printf("2. Ideal cycle time\n");
-        printf("3. Data for defect products\n");
-        printf("4. Data for unplanned stop\n");
-        printf("5. Run simulation\n");
-        printf("6. Go back\n");
-        printf("7. Quit program\n");
-
-        finishSelector = getch();
-    } while(finishSelector < ASCII_one || finishSelector > ASCII_seven);
-
-    switch(finishSelector) {
-        case ASCII_one:
-           
-            system("clear");
-            printf("Enter the total count: ");
-            scanf(" %d", total_count);
-            
-            break;
-        case ASCII_two:
-  
-            system("clear");
-            printf("Enter ideal cycle time: ");
-            scanf(" %d", ideal_cycle_time);
-
-            break;
-        case ASCII_three:
-            
-            system("clear");
-            printf("");
-            break;
-        case ASCII_four:
-            
-            break;
-        case ASCII_five:
-            
-            break;
-        case ASCII_six:
-           
-            return modelMenu(amount_of_processes);
-            break;
-        case ASCII_seven:
-            
-            system("clear");
-            printf("The program has shut down.\n");
-            exit(EXIT_SUCCESS);
-            break;
-    }
-    return EXIT_SUCCESS;
-}*/
 
 int simulationMenu(process processes[] ,int *amount_of_processes) {
     int simulationSelector = 0;
