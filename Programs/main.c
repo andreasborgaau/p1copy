@@ -1,7 +1,6 @@
 #include "constants.h"
 #include "model_system.h"
-#include "calculate_functions.h"
-#include "inv_tran_sampling.h"
+#include "results.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +13,7 @@ static struct termios old, current;
 int mainMenu(int*);
 int modelMenu(int*);
 int dataMenu(int*);
-int simulationMenu(process[], int*);
+int simulationMenu(process[], int*, manufacturing_system);
 void manual(void);
 void initTermios(void);
 void resetTermios(void);
@@ -118,7 +117,7 @@ int dataMenu (int *amount_of_processes){
     process *processes;
     processes = malloc(*amount_of_processes * sizeof(int));
 
-    
+    system("clear");
 
     printf("Total amount of processes: %d\n", *amount_of_processes);
 
@@ -139,7 +138,7 @@ int dataMenu (int *amount_of_processes){
 
         printf("Current process: %d \n\n", i+1);
 
-        printf("Enter ideal cycle time: ");
+        printf("Enter ideal cycle time in minutes: ");
         scanf(" %d", &processes[i].ideal_cycle_time);
 
         printf("\nChoose type of probability distribution for defects:\n"
@@ -187,10 +186,10 @@ int dataMenu (int *amount_of_processes){
     }
 
     free(processes);
-    return simulationMenu(processes, amount_of_processes);
+    return simulationMenu(processes, amount_of_processes, manu_system);
 }
 
-int simulationMenu(process processes[] ,int *amount_of_processes) {
+int simulationMenu(process processes[], int *amount_of_processes, manufacturing_system manu_system) {
     int simulationSelector = 0;
 
     do{
@@ -207,7 +206,11 @@ int simulationMenu(process processes[] ,int *amount_of_processes) {
         case ASCII_one:
             /* Run simulation */
             system("clear");
-            simulate(processes, amount_of_processes);           
+            simulate(processes, amount_of_processes);
+            printResult1(*amount_of_processes, processes, manu_system);
+            printResult2(*amount_of_processes, processes, manu_system);
+            printResult3(*amount_of_processes, processes, manu_system);
+            break;            
         case ASCII_two:
             /* Go back */
             return dataMenu(amount_of_processes);
