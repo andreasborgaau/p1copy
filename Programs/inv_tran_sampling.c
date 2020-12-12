@@ -6,7 +6,6 @@
 #include <math.h>
 
 typedef struct{
-    int total_count;
     int ideal_cycle_time;
     double defectsArr[NUM_SIM];
     double stopsArr[NUM_SIM];
