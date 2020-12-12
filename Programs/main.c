@@ -31,7 +31,6 @@ int main(void){
 int mainMenu(int *amount_of_processes) {
     int mainSelector=0;
     /* Menu selector */
-
     do{
         system("clear");
         printf(ANSI_UNDERLINED_PRE "Main Menu" ANSI_UNDERLINED_POST "\n\n");
