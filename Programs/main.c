@@ -136,10 +136,10 @@ int dataMenu (int *amount_of_processes){
 
         system("clear");
 
-        printf("Current process: %d \n\n", i+1);
+        printf("Current process: %d / %d \n\n", i+1, *amount_of_processes);
 
         printf("Enter ideal cycle time in minutes: ");
-        scanf(" %d", &processes[i].ideal_cycle_time);
+        scanf(" %lf", &processes[i].ideal_cycle_time);
 
         printf("\nChoose type of probability distribution for defects:\n"
                "1. Normal distribution\n"
@@ -184,8 +184,6 @@ int dataMenu (int *amount_of_processes){
             scanf(" %lf", &processes[i].lambda_US);
         }
     }
-
-    free(processes);
     return simulationMenu(processes, amount_of_processes, manu_system);
 }
 
@@ -194,6 +192,7 @@ int simulationMenu(process processes[], int *amount_of_processes, manufacturing_
 
     do{
         system("clear");
+        printf("Ideal Cycle Time: %f", processes[0].ideal_cycle_time);
         printf(ANSI_UNDERLINED_PRE "Simulation" ANSI_UNDERLINED_POST "\n\n");
         printf("1. Run simulation\n");
         printf("2. Go back\n");
@@ -207,9 +206,10 @@ int simulationMenu(process processes[], int *amount_of_processes, manufacturing_
             /* Run simulation */
             system("clear");
             simulate(processes, amount_of_processes);
-            printResult1(*amount_of_processes, processes, manu_system);
+            printResult1(*amount_of_processes, processes);
             printResult2(*amount_of_processes, processes, manu_system);
             printResult3(*amount_of_processes, processes, manu_system);
+            free(processes);
             break;            
         case ASCII_two:
             /* Go back */

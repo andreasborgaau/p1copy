@@ -37,7 +37,3 @@ double calculateQuality(double good_count, manufacturing_system manu_system){
 double calculateOEE1(double availability, double performace, double quality){
     return availability * performace * quality;
 }
-
-double calculateOEE2(double idealCycleTime, double good_count, double plannedProductionTime){
-    return (idealCycleTime * good_count) / plannedProductionTime;
-}

@@ -1,7 +1,7 @@
 #include "constants.h"
 
 typedef struct{
-    int ideal_cycle_time;
+    double ideal_cycle_time;
     double defectsArr[NUM_SIM];
     double stopsArr[NUM_SIM];
     double mean_defects;

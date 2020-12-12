@@ -6,7 +6,7 @@
 #include <math.h>
 
 typedef struct{
-    int ideal_cycle_time;
+    double ideal_cycle_time;
     double defectsArr[NUM_SIM];
     double stopsArr[NUM_SIM];
     double mean_defects;
@@ -60,10 +60,5 @@ double simulate(process processes[], int *amount_of_processes){
                 processes[i].stopsArr[j] = inv_cdf_exponential(processes[i].lambda_US, sample());
             }
     }
-
-    for(i = 0; i < NUM_SIM; i++) {
-        printf("%d. %f \t %f\n", i+1, processes[0].defectsArr[i],processes[0].stopsArr[i]);
-    }
-
     return EXIT_SUCCESS;
 }

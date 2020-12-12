@@ -6,4 +6,3 @@ double calculateAvailability(double, manufacturing_system);
 double calculatePerformance(double, process, manufacturing_system);
 double calculateQuality(double, manufacturing_system);
 double calculateOEE1(double, double, double);
-double calculateOEE2(double, double, double);

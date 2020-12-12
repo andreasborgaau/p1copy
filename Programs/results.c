@@ -4,27 +4,10 @@
 #include <stdlib.h>
 #include <math.h>
 
-void printResult1(int amount_of_processes, process processes[], manufacturing_system manu_system){
-    int i, defect, good_count, run_time, unplanned_stops, temp_total_count = manu_system.total_count;
-
-    printf("\n_________________________________________________________________________\n");
-    printf(ANSI_UNDERLINED_PRE "|                                   Table 1                             |" ANSI_UNDERLINED_POST "\n");
-
-    printf(ANSI_UNDERLINED_PRE "| Process | Total count | Defects |  Good count  |  Run time  |  Unplanned stops  |" ANSI_UNDERLINED_POST "\n");
-
-    for(i = 0; i < amount_of_processes; i++) {
-        if (i != 0)
-            temp_total_count -= ceil(defects(processes[i-1], amount_of_processes));
-        defect = ceil(defects(processes[i], amount_of_processes));
-        good_count = temp_total_count - ceil(defects(processes[i], amount_of_processes));
-        run_time = manu_system.planned_production_time - ceil(stops(processes[i], amount_of_processes));
-        unplanned_stops = ceil(stops(processes[i], amount_of_processes));
-
-        printf(ANSI_UNDERLINED_PRE "| %3d | %8d | %8d | %8d | %4d | %4d |" ANSI_UNDERLINED_POST "\n", i, temp_total_count, defect, good_count, run_time, unplanned_stops);
+void printResult1(int amount_of_processes, process processes[]){
+        
+        
     }
-
-    printf("\n\n");
-}
 
 void printResult2(int amount_of_processes, process processes[], manufacturing_system manu_system){
     int i;
@@ -40,7 +23,7 @@ void printResult2(int amount_of_processes, process processes[], manufacturing_sy
         quality = calculateQuality(manu_system.total_count - defects(processes[i], amount_of_processes), manu_system);
         OEE = calculateOEE1(availability, performance, quality);
 
-        printf(ANSI_UNDERLINED_PRE "| %3d | %3.3f | %3.3f | %3.3f | %3.3f |" ANSI_UNDERLINED_POST "\n", i, OEE, availability, performance, quality);
+        printf(ANSI_UNDERLINED_PRE "| %3d | %3.3f | %3.3f | %3.3f | %3.3f |" ANSI_UNDERLINED_POST "\n", i+1, OEE, availability, performance, quality);
     }
 
     printf("\n\n");
@@ -72,5 +55,5 @@ void printResult3(int amount_of_processes, process processes[], manufacturing_sy
     printf(ANSI_UNDERLINED_PRE "| Performance  |  %3.3f  |" ANSI_UNDERLINED_POST "\n", performance_mean);
     printf(ANSI_UNDERLINED_PRE "| Quality      |  %3.3f  |" ANSI_UNDERLINED_POST "\n", quality_mean);
 
-    printf("\n\nIdeal cycle time: %d \nTotal count: %d \nRun time: %f ", processes[0].ideal_cycle_time, manu_system.total_count, manu_system.planned_production_time - stops(processes[0], amount_of_processes));
+    printf("\n\nIdeal cycle time: %f \nTotal count: %d \nRun time: %f ", processes[0].ideal_cycle_time, manu_system.total_count, manu_system.planned_production_time - stops(processes[0], amount_of_processes));
 }
