@@ -24,7 +24,7 @@ typedef struct{
 } manufacturing_system;
 
 double inv_cdf_normal(double mean, double std_deviation, double sample){
-    return r8_normal_01_cdf_inverse(sample) * std_deviation + mean;
+    return abs(r8_normal_01_cdf_inverse(sample) * std_deviation + mean);
 }
 
 double inv_cdf_exponential(double lambda, double sample){
@@ -32,7 +32,7 @@ double inv_cdf_exponential(double lambda, double sample){
 }
 
 double sample(void){
-    return ((double)(rand() % 101))/(double)100;
+    return (double)rand() / (double)RAND_MAX;
 }
 
 double simulate(process processes[], int *amount_of_processes){
@@ -57,5 +57,9 @@ double simulate(process processes[], int *amount_of_processes){
             for(j = 0; j < NUM_SIM; j++)
                 processes[i].stopsArr[j] = inv_cdf_exponential(processes[i].lambda_US, sample());
     }
+
+    for(i = 0; i < NUM_SIM; i++)
+        printf("%d %f %f\n", i, processes[0].defectsArr[i], processes[0].stopsArr[i]);
+
     return EXIT_SUCCESS;
 }

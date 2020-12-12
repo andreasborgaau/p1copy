@@ -6,7 +6,7 @@
 #define ASCII_five 53
 #define ASCII_six 54
 #define ASCII_seven 55
-#define NUM_SIM 1000
+#define NUM_SIM 100
 
 #define ANSI_UNDERLINED_PRE  "\033[4m"
 #define ANSI_UNDERLINED_POST "\033[0m"
