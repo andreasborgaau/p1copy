@@ -112,15 +112,22 @@ int modelMenu(int *amount_of_processes) {
 }
 
 int dataMenu (int *amount_of_processes){
-    int i, total_count, distribution_selector = 0;
+    int i, distribution_selector = 0;
+
+    manufacturing_system manu_system;
 
     process *processes;
     processes = malloc(*amount_of_processes * sizeof(int));
 
+    
+
     printf("Total amount of processes: %d\n", *amount_of_processes);
 
     printf("Enter total count: ");
-    scanf(" %d", total_count);
+    scanf(" %d", &manu_system.total_count);
+
+    printf("Enter planned production time in minutes: ");
+    scanf(" %d", &manu_system.planned_production_time);
 
     /* This for-loop sets all elements to -1 */
     for(i = 0; i < *amount_of_processes; i++) {

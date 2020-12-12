@@ -18,6 +18,11 @@ typedef struct{
     double lambda_US;
 } process;
 
+typedef struct{
+    int planned_production_time;
+    int total_count;
+} manufacturing_system;
+
 double inv_cdf_normal(double mean, double std_deviation, double sample){
     return sample + 2;
 }

@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-double good_count(int totalCount, int amount_of_processes, process processes[]){
+double good_count(manufacturing_system manu_system, process processes[], int amount_of_processes){
     int i, j;
     double defects_total = 0, defects_mean;
 
@@ -13,19 +13,33 @@ double good_count(int totalCount, int amount_of_processes, process processes[]){
     
     defects_mean = defects_total / NUM_SIM * amount_of_processes;
 
-    return (double)totalCount - defects_mean;
+    return (double)manu_system.total_count - defects_mean;
 }
 
-double calculateAvailability(double runTime, double plannedProductionTime){
-    return runTime / plannedProductionTime;
+double run_time(manufacturing_system manu_system, process processes[], int amount_of_processes) {
+    int i, j;
+    double US_total = 0, US_mean;
+
+    for (i = 0; i < amount_of_processes; i++){
+        for (j = 0; j < NUM_SIM; j++)
+            US_total += processes[i].stopsArr[j];
+    }
+    
+    US_mean = US_total / NUM_SIM * amount_of_processes;
+
+    return manu_system.planned_production_time - US_mean;
 }
 
-double calculatePerformance(double idealCycleTime, double totalCount, double runTime){
-    return (idealCycleTime * totalCount) / runTime;
+double calculateAvailability(double runTime, manufacturing_system manu_system){
+    return runTime / manu_system.planned_production_time;
 }
 
-double calculateQuality(double goodCount, double totalCount){
-    return goodCount / totalCount;
+double calculatePerformance(process process, manufacturing_system manu_system, double runTime){
+    return (process.ideal_cycle_time * manu_system.total_count) / runTime;
+}
+
+double calculateQuality(double goodCount, manufacturing_system manu_system){
+    return goodCount / manu_system.total_count;
 }
 
 double calculateOEE1(double availability, double performace, double quality){

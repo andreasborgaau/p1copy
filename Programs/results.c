@@ -4,4 +4,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int 
+void printResult1(){
+
+} 
+
+
+void printResult2(){
+
+} 
+
+
+
+
+void printResult3(){
+
+} 
