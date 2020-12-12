@@ -39,26 +39,22 @@ double simulate(process processes[], int *amount_of_processes){
     
     srand(time(NULL));
 
-    for (i = 0; i < *amount_of_processes; i++){
+    for(i = 0; i < *amount_of_processes; i++){
         if(processes[i].mean_defects != -1)
-            for (j = 0; j < NUM_SIM; j++){
+            for(j = 0; j < NUM_SIM; j++)
                 processes[i].defectsArr[j] = inv_cdf_normal(processes[i].mean_defects, processes[i].std_deviation_defects, sample());
-            }
         if(processes[i].lambda_defects != -1)
-            for (j = 0; j < NUM_SIM; j++){
+            for(j = 0; j < NUM_SIM; j++)
                 processes[i].defectsArr[j] = inv_cdf_exponential(processes[i].lambda_defects, sample());
-            }
     }
 
-    for (i = 0; i < *amount_of_processes; i++){
+    for(i = 0; i < *amount_of_processes; i++){
         if(processes[i].mean_US != -1)
-            for (j = 0; j < NUM_SIM; j++){
+            for(j = 0; j < NUM_SIM; j++)
                 processes[i].stopsArr[j] = inv_cdf_normal(processes[i].mean_US, processes[i].std_deviation_US, sample());
-            }
         if(processes[i].lambda_US != -1)
-            for (j = 0; j < NUM_SIM; j++){
+            for(j = 0; j < NUM_SIM; j++)
                 processes[i].stopsArr[j] = inv_cdf_exponential(processes[i].lambda_US, sample());
-            }
     }
     return EXIT_SUCCESS;
 }

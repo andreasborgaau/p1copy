@@ -6,17 +6,17 @@ double defects(process process, int amount_of_processes){
     int i;
     double defects_total;
 
-    for (i = 0; i < NUM_SIM; i++)
+    for(i = 0; i < NUM_SIM; i++)
         defects_total += process.defectsArr[i];
 
     return defects_total / NUM_SIM;
 }
 
-double stops(process process, int amount_of_processes) {
+double stops(process process, int amount_of_processes){
     int i;
     double US_total = 0;
 
-    for (i = 0; i < NUM_SIM; i++)
+    for(i = 0; i < NUM_SIM; i++)
         US_total += process.stopsArr[i];
     
     return US_total / NUM_SIM;

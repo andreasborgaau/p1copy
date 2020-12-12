@@ -10,12 +10,12 @@ typedef struct{
     double mean_US;
     double std_deviation_US;
     double lambda_US;
-} process;
+}process;
 
 typedef struct{
     int planned_production_time;
     int total_count;
-} manufacturing_system;
+}manufacturing_system;
 
 double inv_cdf_normal(double, double, double);
 double inv_cdf_exponential(double, double);

@@ -16,7 +16,7 @@ void printResult2(int amount_of_processes, process processes[], manufacturing_sy
 
     printf(ANSI_UNDERLINED_PRE "| Process |   OEE   |  Availability  |  Performance  |  Quality  |" ANSI_UNDERLINED_POST "\n");
     
-    for(i = 0; i < amount_of_processes; i++) {
+    for(i = 0; i < amount_of_processes; i++){
         availability = calculateAvailability(manu_system.planned_production_time - stops(processes[i], amount_of_processes), manu_system);
         performance = calculatePerformance(manu_system.planned_production_time - stops(processes[i], amount_of_processes), processes[i], manu_system);
         quality = calculateQuality(manu_system.total_count - defects(processes[i], amount_of_processes), manu_system);
@@ -35,7 +35,7 @@ void printResult3(int amount_of_processes, process processes[], manufacturing_sy
     int i;
     double OEE, availability_total, performance_total, quality_total, availability_mean, performance_mean, quality_mean;
 
-    for (i = 0; i < amount_of_processes; i++){
+    for(i = 0; i < amount_of_processes; i++){
         availability_total += calculateAvailability(manu_system.planned_production_time - stops(processes[i], amount_of_processes), manu_system);
         performance_total += calculatePerformance(manu_system.planned_production_time - stops(processes[i], amount_of_processes), processes[i], manu_system);
         quality_total += calculateQuality(manu_system.total_count - defects(processes[i], amount_of_processes), manu_system);

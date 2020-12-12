@@ -1,4 +1,4 @@
-manu_sim: model_system.o calculate_functions.o inv_tran_sampling.o main.o
+manu_sim: inv_tran_sampling.o model_system.o calculate_functions.o results.o main.o
 	gcc -Wall -pedantic -ansi -o manu_sim.out inv_tran_sampling.o model_system.o calculate_functions.o results.o main.o -lm
 
 main.o: model_system.h calculate_functions.h constants.h inv_tran_sampling.h
