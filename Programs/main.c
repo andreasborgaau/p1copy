@@ -122,6 +122,7 @@ int dataMenu (int *amount_of_processes){
     printf("Enter total count: ");
     scanf(" %d", total_count);
 
+    /* This for-loop sets all elements to -1 */
     for(i = 0; i < *amount_of_processes; i++) {
         processes[i].mean_defects = -1;
         processes[i].lambda_defects = -1;
@@ -150,7 +151,7 @@ int dataMenu (int *amount_of_processes){
             printf("Enter standard deviation: ");
             scanf(" %lf", &processes[i].std_deviation_defects);
         }
-
+        
         if(distribution_selector == ASCII_two){
             printf("Enter Lambda value: ");
             scanf(" %lf", &processes[i].lambda_defects);
@@ -209,7 +210,6 @@ int simulationMenu(process processes[] ,int *amount_of_processes) {
             /* Quit program */
             quit();
             break;
-
     }
     return EXIT_SUCCESS;
 }
@@ -259,6 +259,7 @@ char getch(void) {
   return ch;
 }
 
+/* This function quits the program */
 int quit(void) {
     system("clear");
     printf("The program has shut down.\n");
