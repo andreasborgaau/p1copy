@@ -6,8 +6,7 @@
 
 void printResult1(int amount_of_processes, process processes[]){
         
-        
-    }
+}
 
 void printResult2(int amount_of_processes, process processes[], manufacturing_system manu_system){
     int i;
