@@ -115,7 +115,7 @@ int dataMenu (int *amount_of_processes){
     manufacturing_system manu_system;
 
     process *processes;
-    processes = malloc(*amount_of_processes * sizeof(int));
+    processes = malloc(*amount_of_processes * sizeof(process));
 
     system("clear");
 
@@ -192,7 +192,6 @@ int simulationMenu(process processes[], int *amount_of_processes, manufacturing_
 
     do{
         system("clear");
-        printf("Ideal Cycle Time: %f", processes[0].ideal_cycle_time);
         printf(ANSI_UNDERLINED_PRE "Simulation" ANSI_UNDERLINED_POST "\n\n");
         printf("1. Run simulation\n");
         printf("2. Go back\n");
