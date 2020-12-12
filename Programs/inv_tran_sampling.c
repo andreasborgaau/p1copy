@@ -1,4 +1,5 @@
 #include "constants.h"
+#include "asa241.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +24,7 @@ typedef struct{
 } manufacturing_system;
 
 double inv_cdf_normal(double mean, double std_deviation, double sample){
-    return sample + 2;
+    return r8_normal_01_cdf_inverse(sample) * std_deviation + mean;
 }
 
 double inv_cdf_exponential(double lambda, double sample){
