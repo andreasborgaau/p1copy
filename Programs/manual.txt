@@ -3,6 +3,7 @@ The manual will give an explanation of what the program does and how to use it. 
 The purpose of this program is to model a manufacturing system, and run a simulation based on the modelled system. After the simulation is done, the results will be shown.
 
 Prior to using the program, the user needs to collect data for the following:
+
 - Total count for the entire manufacturing system.
 - Ideal cycle time for each process.
 - Whether data for defects and unplanned stops follows a normal distribution or an exponential distribution.
@@ -12,35 +13,31 @@ Prior to using the program, the user needs to collect data for the following:
 The program consists of three different menus. An explanation of each menu is given below:
 
 1. The main menu consists of three different choices:
+
     - If “Model System” is selected,  the user is brought to the model menu.
-
     - If “Manual” is selected, the user is brought to the manual. 
-
     - If “Quit program” is selected, the program quits.
 
 2. The model menu consists of three different choices: 
+
     - If  “Model manufacturing system” is selected, the user is prompted to enter the amount of manufacturing processes the manufacturing system contains. Followed by this, the manufacturing system will be illustrated in the terminal. The user now has the option to "Finish model" if he wants to proceed or "Return to model menu" if he wants to go back.
-
     - If  “Go back” is selected, the user is brought back to the main menu. 
-
     - If “Quit program” is selected, the program quits.     
 
 
 After selecting "Finish model", the user is prompted to enter the data mentioned earlier, and is afterwards brought to the last menu.
 
 3. The simulation menu consists of three different options:
+
     - If "Run simulation" is selected, the simulation will run and the output is shown in the terminal. 
-
     - If "Go back" is selected, the user is prompted to re-enter the data.
-
     - If "Quit" is selected, the program quits. 
 
 
 The output consists of:
-    - Histograms that illustrate the distribution of unplanned stops and defects for each process.
 
+    - Histograms that illustrate the distribution of unplanned stops and defects for each process.
     - A table that shows OEE, availability, performance, and quality for each process, sorted from lowest OEE to highest OEE.
-    
     - A table that shows OEE, availability, performance, and quality for the entire manufacturing system.
 
 An example of output is shown below:  
