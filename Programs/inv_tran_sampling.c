@@ -7,6 +7,7 @@
 #include <math.h>
 
 typedef struct{
+    double planned_production_time;
     double ideal_cycle_time;
     double defectsArr[NUM_SIM];
     double stopsArr[NUM_SIM];
@@ -19,7 +20,6 @@ typedef struct{
 } process;
 
 typedef struct{
-    int planned_production_time;
     int total_count;
 } manufacturing_system;
 
@@ -57,9 +57,6 @@ double simulate(process processes[], int *amount_of_processes){
             for(j = 0; j < NUM_SIM; j++)
                 processes[i].stopsArr[j] = inv_cdf_exponential(processes[i].lambda_US, sample());
     }
-
-    for(i = 0; i < NUM_SIM; i++)
-        printf("%d %f %f\n", i, processes[0].defectsArr[i], processes[0].stopsArr[i]);
 
     return EXIT_SUCCESS;
 }

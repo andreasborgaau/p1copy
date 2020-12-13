@@ -63,9 +63,9 @@ void printResult2(int amount_of_processes, process processes[], manufacturing_sy
     printf(ANSI_UNDERLINED_PRE "| Process |   OEE   |  Availability  |  Performance  |  Quality  |" ANSI_UNDERLINED_POST "\n");
     
     for(i = 0; i < amount_of_processes; i++){
-        availability = calculateAvailability(processes[i].planned_production_time - stops(processes[i], amount_of_processes), processes[i]);
-        performance = calculatePerformance(processes[i].planned_production_time - stops(processes[i], amount_of_processes), processes[i], manu_system);
-        quality = calculateQuality(manu_system.total_count - defects(processes[i], amount_of_processes), manu_system);
+        availability = calculateAvailability(processes[i].planned_production_time - stops(processes[i]), processes[i]);
+        performance = calculatePerformance(processes[i].planned_production_time - stops(processes[i]), processes[i], manu_system);
+        quality = calculateQuality(manu_system.total_count - defects(processes[i]), manu_system);
         OEE = calculateOEE1(availability, performance, quality);
 
         printf(ANSI_UNDERLINED_PRE "| %7d | %7.3f | %14.3f | %13.3f | %9.3f |" ANSI_UNDERLINED_POST "\n", i+1, OEE, availability, performance, quality);
@@ -80,9 +80,9 @@ void printResult3(int amount_of_processes, process processes[], manufacturing_sy
     double OEE, availability_total = 0, performance_total = 0, quality_total = 0, availability_mean, performance_mean, quality_mean;
 
     for(i = 0; i < amount_of_processes; i++){
-        availability_total += calculateAvailability(processes[i].planned_production_time - stops(processes[i], amount_of_processes), processes[i]);
-        performance_total += calculatePerformance(processes[i].planned_production_time - stops(processes[i], amount_of_processes), processes[i], manu_system);
-        quality_total += calculateQuality(manu_system.total_count - defects(processes[i], amount_of_processes), manu_system);
+        availability_total += calculateAvailability(processes[i].planned_production_time - stops(processes[i]), processes[i]);
+        performance_total += calculatePerformance(processes[i].planned_production_time - stops(processes[i]), processes[i], manu_system);
+        quality_total += calculateQuality(manu_system.total_count - defects(processes[i]), manu_system);
     }
     
     availability_mean = availability_total / amount_of_processes;

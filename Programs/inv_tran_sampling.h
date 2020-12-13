@@ -14,7 +14,6 @@ typedef struct{
 }process;
 
 typedef struct{
-
     int total_count;
 }manufacturing_system;
 

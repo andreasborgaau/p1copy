@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-double defects(process process, int amount_of_processes){
+double defects(process process){
     int i;
     double defects_total;
 
@@ -12,7 +12,7 @@ double defects(process process, int amount_of_processes){
     return defects_total / NUM_SIM;
 }
 
-double stops(process process, int amount_of_processes){
+double stops(process process){
     int i;
     double US_total = 0;
 
