@@ -35,11 +35,11 @@ int mainMenu(int *amount_of_processes){
         system("clear");
         printf(ANSI_UNDERLINED_PRE"Main Menu"ANSI_UNDERLINED_POST"\n\n");
         printf("1. Model system \n"
-               "2. Manual\n"
-               "3. Quit program\n");
+               "2. Manual\n\n"
+               "9. Quit program\n");
 
         main_selector = getch();
-    }while(main_selector < ASCII_one || main_selector > ASCII_three);
+    }while(main_selector != ASCII_one && main_selector != ASCII_two && main_selector != ASCII_nine);
 
     switch(main_selector){
         /*Model system*/
@@ -50,7 +50,7 @@ int mainMenu(int *amount_of_processes){
         case ASCII_two:
             system("clear");
             manual();
-            printf("\n1. Return to Main Menu");
+            printf("\n\n1. Return to Main Menu");
             do{
                 main_selector = getch();
                 if(main_selector == ASCII_one)
@@ -58,7 +58,7 @@ int mainMenu(int *amount_of_processes){
             }while(main_selector != ASCII_one);
             break;
         /*Quit*/
-        case ASCII_three:
+        case ASCII_nine:
             quit();
             break;
     }
@@ -71,13 +71,12 @@ int modelMenu(int *amount_of_processes){
     do{
         system("clear");
         printf(ANSI_UNDERLINED_PRE"Model Menu"ANSI_UNDERLINED_POST"\n\n");
-        printf("1. Model manufacturing system\n");
-        printf("2. Finish model\n");
-        printf("3. Go back\n");
-        printf("4. Quit program\n");
+        printf("1. Model manufacturing system\n\n");
+        printf("8. Go back\n");
+        printf("9. Quit program\n");
 
         model_selector = getch();
-    }while(model_selector < ASCII_one || model_selector > ASCII_four);
+    }while(model_selector != ASCII_one && model_selector != ASCII_eight && model_selector != ASCII_nine);
 
     switch(model_selector){
         /*New process*/
@@ -90,18 +89,16 @@ int modelMenu(int *amount_of_processes){
                     model_selector = getch();
                 if(model_selector == ASCII_one)
                     return modelMenu(amount_of_processes);
-            }while(model_selector != ASCII_one);
-            break;
-        /*Finish model*/
-        case ASCII_two:
-            dataMenu(amount_of_processes);
+                if(model_selector == ASCII_two)
+                    return dataMenu(amount_of_processes);
+            }while(model_selector != ASCII_one && model_selector != ASCII_two);
             break;
         /*Go back*/
-        case ASCII_three:
+        case ASCII_eight:
             return mainMenu(amount_of_processes);
             break;
         /*Quit*/
-        case ASCII_four:
+        case ASCII_nine:
             quit();
             break;
     }
@@ -132,20 +129,22 @@ int dataMenu (int *amount_of_processes){
         system("clear");
 
         printf(ANSI_UNDERLINED_PRE"Current process: %d / %d"ANSI_UNDERLINED_POST"\n\n", i+1, *amount_of_processes);
-
-        printf("Enter planned production time in minutes: ");
+        
+        printf("Enter planned production time [min]: ");
         scanf(" %lf", &processes[i].planned_production_time);
 
-        printf("Enter ideal cycle time in minutes: ");
+        printf("Enter ideal cycle time [min]: ");
         scanf(" %lf", &processes[i].ideal_cycle_time);
 
         printf("\nChoose type of probability distribution for defects:\n"
                "1. Normal distribution\n"
                "2. Exponential distribution\n");
-
-        distribution_selector = getch();
-        if(distribution_selector == ASCII_newline)
+        
+        do{
             distribution_selector = getch();
+            if(distribution_selector == ASCII_newline)
+                distribution_selector = getch();
+        }while(distribution_selector != ASCII_one && distribution_selector != ASCII_two);
 
         if(distribution_selector == ASCII_one){
             printf("\n\nEnter mean value: ");
@@ -154,7 +153,7 @@ int dataMenu (int *amount_of_processes){
             printf("Enter standard deviation: ");
             scanf(" %lf", &processes[i].std_deviation_defects);
         }
-        
+
         if(distribution_selector == ASCII_two){
             printf("\n\nEnter Lambda value: ");
             scanf(" %lf", &processes[i].lambda_defects);
@@ -164,9 +163,12 @@ int dataMenu (int *amount_of_processes){
                "1. Normal distribution\n"
                "2. Exponential distribution\n");
 
-        distribution_selector = getch();
-        if(distribution_selector == ASCII_newline)
+        do{
             distribution_selector = getch();
+            if(distribution_selector == ASCII_newline)
+                distribution_selector = getch();
+        }while(distribution_selector != ASCII_one && distribution_selector != ASCII_two);
+
 
         if(distribution_selector == ASCII_one){
             printf("\n\nEnter mean value: ");
@@ -185,19 +187,19 @@ int dataMenu (int *amount_of_processes){
 }
 
 int simulationMenu(process processes[], int *amount_of_processes, manufacturing_system manu_system){
-    int simulationSelector = 0, i;
+    int simulation_selector = 0, i;
 
     do{
         system("clear");
         printf(ANSI_UNDERLINED_PRE"Simulation"ANSI_UNDERLINED_POST"\n\n");
-        printf("1. Run simulation\n");
-        printf("2. Go back\n");
-        printf("3. Quit program\n");
+        printf("1. Run simulation\n\n");
+        printf("8. Go back\n");
+        printf("9. Quit program\n");
 
-        simulationSelector = getch();
-    }while(simulationSelector < ASCII_one || simulationSelector > ASCII_three);
+        simulation_selector = getch();
+    }while(simulation_selector != ASCII_one && simulation_selector != ASCII_eight && simulation_selector != ASCII_nine);
 
-    switch(simulationSelector){
+    switch(simulation_selector){
         /*Run simulation*/
         case ASCII_one:   
             system("clear");
@@ -205,15 +207,16 @@ int simulationMenu(process processes[], int *amount_of_processes, manufacturing_
             for(i = 0; i < *amount_of_processes; i++)
                 printHistogram(processes[i], i);
             printResult2(*amount_of_processes, processes, manu_system);
+            printSortedResult(*amount_of_processes, processes, manu_system);
             printResult3(*amount_of_processes, processes, manu_system);
             free(processes);
             break;
         /*Go back*/            
-        case ASCII_two:
+        case ASCII_eight:
             return dataMenu(amount_of_processes);
             break;
         /*Quit program*/
-        case ASCII_three:
+        case ASCII_nine:
             quit();
             break;
     }
@@ -223,25 +226,25 @@ int simulationMenu(process processes[], int *amount_of_processes, manufacturing_
 
 /*This function prints the manual on the screen*/
 void manual(void){
-    FILE *filePointer;
+    FILE *file_pointer;
     char c; 
 
     printf(ANSI_UNDERLINED_PRE"Manual"ANSI_UNDERLINED_POST"\n\n");
 
     /*Open file*/
-    filePointer = fopen("manual.txt", "r"); 
-    if(filePointer == NULL){ 
+    file_pointer = fopen("manual.txt", "r"); 
+    if(file_pointer == NULL){ 
         printf("Can not open file \n"); 
         exit(EXIT_FAILURE);
     }
 
-    c = fgetc(filePointer);
+    c = fgetc(file_pointer);
     /*Read contents from file*/
     while(c != EOF){ 
         printf ("%c", c);
-        c = fgetc(filePointer);
+        c = fgetc(file_pointer);
     }
-    fclose(filePointer); 
+    fclose(file_pointer); 
 }
 
 void initTermios(void){

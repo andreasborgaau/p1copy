@@ -1,6 +1,11 @@
 #include "constants.h"
 
 typedef struct{
+    int index;
+    double availability;
+    double performance;
+    double quality;
+    double OEE;
     double planned_production_time;
     double ideal_cycle_time;
     double defectsArr[NUM_SIM];
