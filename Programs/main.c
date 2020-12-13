@@ -207,6 +207,7 @@ int simulationMenu(process processes[], int *amount_of_processes, manufacturing_
             for(i = 0; i < *amount_of_processes; i++)
                 printHistogram(processes[i], i);
             printResult2(*amount_of_processes, processes, manu_system);
+            printSortedResult(*amount_of_processes, processes, manu_system);
             printResult3(*amount_of_processes, processes, manu_system);
             free(processes);
             break;
