@@ -26,7 +26,7 @@ void printHistogram(process processes, int index){
         for(j = 0; j < NUM_SIM; j++){
             if((max_defects - min_defects) / INTERVALS * i + min_defects < processes.defectsArr[j] && processes.defectsArr[j] < (max_defects - min_defects) / INTERVALS * (i + 1) + min_defects){
                 counter++;
-                if(counter > 200){
+                if(counter > 400){
                     counter = 0;
                     printf("|");
                 }
@@ -42,7 +42,7 @@ void printHistogram(process processes, int index){
         for(j = 0; j < NUM_SIM; j++){
             if((max_stops - min_stops) / INTERVALS * i + min_stops < processes.stopsArr[j] && processes.stopsArr[j] < (max_stops - min_stops) / INTERVALS * (i + 1) + min_stops){
                 counter++;
-                if(counter > 200){
+                if(counter > 400){
                     counter = 0;
                     printf("|");
                 }

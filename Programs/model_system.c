@@ -4,7 +4,7 @@
 void newProcess(int *amount_of_processes){
     int i;
 
-    printf("Enter the amount of processes: ");
+    printf("Enter the amount of manufacturing processes: ");
     scanf(" %d", amount_of_processes);
     printf("\n");
 
@@ -19,5 +19,6 @@ void newProcess(int *amount_of_processes){
         printf("    |\n");
     }
     
-    printf("1. Return to model menu\n");
+    printf("\n1. Return to model menu\n");
+    printf("2. Finish model");
 }
