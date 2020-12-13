@@ -2,7 +2,7 @@
 
 double defects(process, int);
 double stops(process, int);
-double calculateAvailability(double, manufacturing_system);
+double calculateAvailability(double, process);
 double calculatePerformance(double, process, manufacturing_system);
 double calculateQuality(double, manufacturing_system);
 double calculateOEE1(double, double, double);

@@ -1,6 +1,7 @@
 #include "constants.h"
 
 typedef struct{
+    double planned_production_time;
     double ideal_cycle_time;
     double defectsArr[NUM_SIM];
     double stopsArr[NUM_SIM];
@@ -13,7 +14,7 @@ typedef struct{
 }process;
 
 typedef struct{
-    int planned_production_time;
+
     int total_count;
 }manufacturing_system;
 

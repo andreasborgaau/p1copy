@@ -22,8 +22,8 @@ double stops(process process, int amount_of_processes){
     return US_total / NUM_SIM;
 }
 
-double calculateAvailability(double run_time, manufacturing_system manu_system){
-    return run_time / manu_system.planned_production_time;
+double calculateAvailability(double run_time, process process){
+    return run_time / process.planned_production_time;
 }
 
 double calculatePerformance(double run_time, process process, manufacturing_system manu_system){

@@ -123,9 +123,6 @@ int dataMenu (int *amount_of_processes){
     printf("Enter total count: ");
     scanf(" %d", &manu_system.total_count);
 
-    printf("Enter planned production time in minutes: ");
-    scanf(" %d", &manu_system.planned_production_time);
-
     for(i = 0; i < *amount_of_processes; i++){
         processes[i].mean_defects = -1;
         processes[i].lambda_defects = -1;
@@ -135,6 +132,9 @@ int dataMenu (int *amount_of_processes){
         system("clear");
 
         printf(ANSI_UNDERLINED_PRE"Current process: %d / %d"ANSI_UNDERLINED_POST"\n\n", i+1, *amount_of_processes);
+
+        printf("Enter planned production time in minutes: ");
+        scanf(" %lf", &processes[i].planned_production_time);
 
         printf("Enter ideal cycle time in minutes: ");
         scanf(" %lf", &processes[i].ideal_cycle_time);
