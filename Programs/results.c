@@ -4,15 +4,61 @@
 #include <stdlib.h>
 #include <math.h>
 
-void printResult1(int amount_of_processes, process processes[]){
+void printHistogram(process processes, int index){
+    int i, j, counter = 0;
+    double min_defects = RAND_MAX, min_stops = RAND_MAX, max_defects = 0, max_stops = 0;
+
+    for(i = 0; i < NUM_SIM; i++){
+        if (processes.defectsArr[i] < min_defects)
+            min_defects = processes.defectsArr[i];
+        if (processes.defectsArr[i] > max_defects)
+            max_defects = processes.defectsArr[i];
         
+        if (processes.stopsArr[i] < min_stops)
+            min_stops = processes.stopsArr[i];
+        if (processes.stopsArr[i] > max_stops)
+            max_stops = processes.stopsArr[i];
+    }
+
+    printf(ANSI_UNDERLINED_PRE"Distribution of Defects for Process %d"ANSI_UNDERLINED_POST"\n\n", index + 1);
+    for(i = 0; i < INTERVALS; i++){
+                printf("[%2d][%6.2f,%6.2f]", i+1, (max_defects - min_defects) / INTERVALS * i + min_defects, (max_defects - min_defects) / INTERVALS * (i +1) + min_defects);
+        for(j = 0; j < NUM_SIM; j++){
+            if((max_defects - min_defects) / INTERVALS * i + min_defects < processes.defectsArr[j] && processes.defectsArr[j] < (max_defects - min_defects) / INTERVALS * (i + 1) + min_defects){
+                counter++;
+                if(counter > 200){
+                    counter = 0;
+                    printf("|");
+                }
+            }
+            if(j == NUM_SIM - 1)
+                printf("\n");
+        }
+    }
+
+    printf("\n\n"ANSI_UNDERLINED_PRE"Distribution of Unplanned Stops for Process %d"ANSI_UNDERLINED_POST"\n\n", index + 1);
+    for(i = 0; i < INTERVALS; i++){
+                printf("[%2d][%6.2f,%6.2f]", i+1, (max_stops - min_stops) / INTERVALS * i + min_stops, (max_stops - min_stops) / INTERVALS * (i +1) + min_stops);
+        for(j = 0; j < NUM_SIM; j++){
+            if((max_stops - min_stops) / INTERVALS * i + min_stops < processes.stopsArr[j] && processes.stopsArr[j] < (max_stops - min_stops) / INTERVALS * (i + 1) + min_stops){
+                counter++;
+                if(counter > 200){
+                    counter = 0;
+                    printf("|");
+                }
+            }
+            if(j == NUM_SIM - 1)
+                printf("\n");
+        }
+    }
+    printf("\n\n");
 }
 
 void printResult2(int amount_of_processes, process processes[], manufacturing_system manu_system){
     int i;
     double availability, performance, quality, OEE;
-    printf("\n__________________________________________________________________\n");
-    printf(ANSI_UNDERLINED_PRE "|                            Table 2                             |" ANSI_UNDERLINED_POST "\n");
+    printf("__________________________________________________________________\n");
+    printf(ANSI_UNDERLINED_PRE "|                      OEE for Each Process                      |" ANSI_UNDERLINED_POST "\n");
 
     printf(ANSI_UNDERLINED_PRE "| Process |   OEE   |  Availability  |  Performance  |  Quality  |" ANSI_UNDERLINED_POST "\n");
     
@@ -24,8 +70,6 @@ void printResult2(int amount_of_processes, process processes[], manufacturing_sy
 
         printf(ANSI_UNDERLINED_PRE "| %7d | %7.3f | %14.3f | %13.3f | %9.3f |" ANSI_UNDERLINED_POST "\n", i+1, OEE, availability, performance, quality);
     }
-
-    printf("\n\n");
 } 
 
 
@@ -33,7 +77,7 @@ void printResult2(int amount_of_processes, process processes[], manufacturing_sy
 
 void printResult3(int amount_of_processes, process processes[], manufacturing_system manu_system){
     int i;
-    double OEE, availability_total, performance_total, quality_total, availability_mean, performance_mean, quality_mean;
+    double OEE, availability_total = 0, performance_total = 0, quality_total = 0, availability_mean, performance_mean, quality_mean;
 
     for(i = 0; i < amount_of_processes; i++){
         availability_total += calculateAvailability(manu_system.planned_production_time - stops(processes[i], amount_of_processes), manu_system);
@@ -47,8 +91,8 @@ void printResult3(int amount_of_processes, process processes[], manufacturing_sy
     
     OEE = calculateOEE1(availability_mean, performance_mean, quality_mean);
 
-    printf("\n___________________________________\n");
-    printf(ANSI_UNDERLINED_PRE "|             Table 3             |" ANSI_UNDERLINED_POST "\n");
+    printf("\n\n___________________________________\n");
+    printf(ANSI_UNDERLINED_PRE "|            Total OEE            |" ANSI_UNDERLINED_POST "\n");
     printf(ANSI_UNDERLINED_PRE "| OEE            |  %12.3f  |" ANSI_UNDERLINED_POST "\n", OEE);
     printf(ANSI_UNDERLINED_PRE "| Availability   |  %12.3f  |" ANSI_UNDERLINED_POST "\n", availability_mean);
     printf(ANSI_UNDERLINED_PRE "| Performance    |  %12.3f  |" ANSI_UNDERLINED_POST "\n", performance_mean);

@@ -24,7 +24,7 @@ typedef struct{
 } manufacturing_system;
 
 double inv_cdf_normal(double mean, double std_deviation, double sample){
-    return abs(r8_normal_01_cdf_inverse(sample) * std_deviation + mean);
+    return r8_normal_01_cdf_inverse(sample) * std_deviation + mean;
 }
 
 double inv_cdf_exponential(double lambda, double sample){

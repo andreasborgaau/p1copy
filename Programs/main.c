@@ -185,7 +185,7 @@ int dataMenu (int *amount_of_processes){
 }
 
 int simulationMenu(process processes[], int *amount_of_processes, manufacturing_system manu_system){
-    int simulationSelector = 0;
+    int simulationSelector = 0, i;
 
     do{
         system("clear");
@@ -202,7 +202,8 @@ int simulationMenu(process processes[], int *amount_of_processes, manufacturing_
         case ASCII_one:   
             system("clear");
             simulate(processes, amount_of_processes);
-            printResult1(*amount_of_processes, processes);
+            for(i = 0; i < *amount_of_processes; i++)
+                printHistogram(processes[i], i);
             printResult2(*amount_of_processes, processes, manu_system);
             printResult3(*amount_of_processes, processes, manu_system);
             free(processes);
