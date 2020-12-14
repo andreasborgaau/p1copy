@@ -5,7 +5,16 @@
 #include <math.h>
 
 int comparator(const void *element1, const void *element2){
-    return (*(double*)element1 - *(double*)element2);
+    /* return (*(double*)element1 - *(double*)element2); */
+    double *tp1 = (double*)element1;
+    double *tp2 = (double*)element2;
+
+    if(*tp1 < *tp2)
+        return -1;
+    else if(*tp1 > *tp2)
+        return 1;
+    else
+        return 0;
 }
 
 void printHistogram(process processes, int index){
@@ -63,14 +72,13 @@ void printHistogram(process processes, int index){
             }
         }
     }
-    printf("\n\n");
 }
 
 void printResult2(int amount_of_processes, process processes[], manufacturing_system manu_system){
     int i;
     double availability, performance, quality, OEE;
 
-    printf("__________________________________________________________________\n");
+    printf("\n__________________________________________________________________\n");
     printf(ANSI_UNDERLINED_PRE "|                      OEE for Each Process                      |" ANSI_UNDERLINED_POST "\n");
     printf(ANSI_UNDERLINED_PRE "| Process |   OEE   |  Availability  |  Performance  |  Quality  |" ANSI_UNDERLINED_POST "\n");
     
@@ -99,15 +107,15 @@ void printSortedResult(int amount_of_processes, process processes[], manufacturi
     }
 
     qsort(indexArr, amount_of_processes, sizeof(double), comparator);
-
-    printf("__________________________________________________________________\n");
-    printf(ANSI_UNDERLINED_PRE "|                      OEE for Each Process                      |" ANSI_UNDERLINED_POST "\n");
+    
+    printf("\n__________________________________________________________________\n");
+    printf(ANSI_UNDERLINED_PRE "|            OEE for Each Process (lowest to highest)            |" ANSI_UNDERLINED_POST "\n");
     printf(ANSI_UNDERLINED_PRE "| Process |   OEE   |  Availability  |  Performance  |  Quality  |" ANSI_UNDERLINED_POST "\n");
 
     for(i = 0; i < amount_of_processes; i++){
         for(j = 0; j < amount_of_processes; j++){
             if(indexArr[i] == processes[j].OEE)
-                printf(ANSI_UNDERLINED_PRE "| %7d | %7.3f | %14.3f | %13.3f | %9.3f |" ANSI_UNDERLINED_POST "\n", i + 1, processes[j].OEE, processes[j].availability, processes[j].performance, processes[j].quality);
+                printf(ANSI_UNDERLINED_PRE "| %7d | %7.3f | %14.3f | %13.3f | %9.3f |" ANSI_UNDERLINED_POST "\n", processes[j].index + 1, processes[j].OEE, processes[j].availability, processes[j].performance, processes[j].quality);
         }
     }
 }
@@ -128,7 +136,7 @@ void printResult3(int amount_of_processes, process processes[], manufacturing_sy
     
     OEE = calculateOEE1(availability_mean, performance_mean, quality_mean);
 
-    printf("\n\n___________________________________\n");
+    printf("\n___________________________________\n");
     printf(ANSI_UNDERLINED_PRE "|            Total OEE            |" ANSI_UNDERLINED_POST "\n");
     printf(ANSI_UNDERLINED_PRE "| OEE            |  %12.3f  |" ANSI_UNDERLINED_POST "\n", OEE);
     printf(ANSI_UNDERLINED_PRE "| Availability   |  %12.3f  |" ANSI_UNDERLINED_POST "\n", availability_mean);
