@@ -221,22 +221,10 @@ int simulationMenu(process processes[], int amount_of_processes, int total_count
 
 /*Prints the manual on the screen.*/
 void manual(void){
-    process manual_processes[1];
     int amount_of_processes = 1, total_count = 500;
+    process manual_processes[1];
     FILE *file_pointer;
     char c;
-
-    manual_processes[0].ideal_cycle_time = 0.8; 
-    manual_processes[0].index = 1; 
-    manual_processes[0].planned_production_time = 700; 
-    manual_processes[0].lambda_defects = -1;
-    manual_processes[0].lambda_US = -1; 
-    manual_processes[0].mean_defects = 70; 
-    manual_processes[0].std_deviation_defects = 10; 
-    manual_processes[0].mean_US = 80; 
-    manual_processes[0].std_deviation_US = 8; 
-
-    simulate(manual_processes, amount_of_processes);
 
     printf(ANSI_UNDERLINED_PRE"Manual"ANSI_UNDERLINED_POST"\n\n");
 
@@ -253,6 +241,18 @@ void manual(void){
         c = fgetc(file_pointer);
     }
     fclose(file_pointer);
+
+    manual_processes[0].ideal_cycle_time = 0.8; 
+    manual_processes[0].index = 1; 
+    manual_processes[0].planned_production_time = 700; 
+    manual_processes[0].lambda_defects = -1;
+    manual_processes[0].lambda_US = -1; 
+    manual_processes[0].mean_defects = 70; 
+    manual_processes[0].std_deviation_defects = 10; 
+    manual_processes[0].mean_US = 80; 
+    manual_processes[0].std_deviation_US = 8; 
+
+    simulate(manual_processes, amount_of_processes);
 
     printHistogram(manual_processes[0], 0);
     printResult(amount_of_processes, manual_processes, total_count);
