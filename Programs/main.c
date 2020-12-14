@@ -166,7 +166,6 @@ int dataMenu(int amount_of_processes){
                 distribution_selector = getch();
         }while(distribution_selector != ASCII_one && distribution_selector != ASCII_two);
 
-
         if(distribution_selector == ASCII_one){
             printf("\n\nEnter mean value: ");
             scanf(" %lf", &processes[i].mean_US);
@@ -219,7 +218,6 @@ int simulationMenu(process processes[], int amount_of_processes, int total_count
 
     return EXIT_SUCCESS;
 }
-
 
 /*Prints the manual on the screen.*/
 void manual(void){
