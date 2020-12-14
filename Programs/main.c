@@ -254,7 +254,7 @@ void manual(void){
     }
     fclose(file_pointer);
 
-    printHistogram(manual_processes[0], 1);
+    printHistogram(manual_processes[0], 0);
     printResult(amount_of_processes, manual_processes, total_count);
     printOverallResult(amount_of_processes, manual_processes, total_count);
 }
