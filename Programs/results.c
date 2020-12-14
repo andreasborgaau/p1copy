@@ -4,10 +4,9 @@
 #include <stdlib.h>
 #include <math.h>
 
+/*Comparison of two elements.*/
 int comparator(const void *element1, const void *element2){
-    /* return (*(double*)element1 - *(double*)element2); */
-    double *tp1 = (double*)element1;
-    double *tp2 = (double*)element2;
+    double *tp1 = (double*)element1, *tp2 = (double*)element2;
 
     if(*tp1 < *tp2)
         return -1;
@@ -17,6 +16,7 @@ int comparator(const void *element1, const void *element2){
         return 0;
 }
 
+/*Prints histograms for defects and unplanned stops for a single manufacturing process.*/
 void printHistogram(process processes, int index){
     int i, j, counter = 0;
     double min_defects = RAND_MAX, min_stops = RAND_MAX, max_defects = 0, max_stops = 0, prob_counter = 0;
@@ -72,27 +72,29 @@ void printHistogram(process processes, int index){
             }
         }
     }
+    printf("\n\n");
 }
 
-void printResult2(int amount_of_processes, process processes[], manufacturing_system manu_system){
+/*Prints the OEE, availability, performance, and quality for each manufacturing processes.*/
+void printResult(int amount_of_processes, process processes[], int total_count){
     int i;
-    double availability, performance, quality, OEE;
 
-    printf("\n__________________________________________________________________\n");
+    printf("__________________________________________________________________\n");
     printf(ANSI_UNDERLINED_PRE "|                      OEE for Each Process                      |" ANSI_UNDERLINED_POST "\n");
     printf(ANSI_UNDERLINED_PRE "| Process |   OEE   |  Availability  |  Performance  |  Quality  |" ANSI_UNDERLINED_POST "\n");
     
     for(i = 0; i < amount_of_processes; i++){
-        availability = calculateAvailability(processes[i].planned_production_time - stops(processes[i]), processes[i]);
-        performance = calculatePerformance(processes[i].planned_production_time - stops(processes[i]), processes[i], manu_system);
-        quality = calculateQuality(manu_system.total_count - defects(processes[i]), manu_system);
-        OEE = calculateOEE1(availability, performance, quality);
+        processes[i].availability = calculateAvailability(processes[i].planned_production_time - stops(processes[i]), processes[i]);
+        processes[i].performance = calculatePerformance(processes[i].planned_production_time - stops(processes[i]), processes[i], total_count);
+        processes[i].quality = calculateQuality(total_count - defects(processes[i]), total_count);
+        processes[i].OEE = calculateOEE(processes[i].availability, processes[i].performance, processes[i].quality);
 
-        printf(ANSI_UNDERLINED_PRE "| %7d | %7.3f | %14.3f | %13.3f | %9.3f |" ANSI_UNDERLINED_POST "\n", i+1, OEE, availability, performance, quality);
+        printf(ANSI_UNDERLINED_PRE "| %7d | %7.3f | %14.3f | %13.3f | %9.3f |" ANSI_UNDERLINED_POST "\n", i+1, processes[i].OEE, processes[i].availability, processes[i].performance, processes[i].quality);
     }
 }
 
-void printSortedResult(int amount_of_processes, process processes[], manufacturing_system manu_system){
+/*Prints the OEE, availability, performance, and quality for each manufacturing processes ordered from lowest to highest OEE.*/
+void printSortedResult(int amount_of_processes, process processes[], int total_count){
     int i, j;
     double *indexArr;
 
@@ -100,9 +102,9 @@ void printSortedResult(int amount_of_processes, process processes[], manufacturi
 
     for(i = 0; i < amount_of_processes; i++){
         processes[i].availability = calculateAvailability(processes[i].planned_production_time - stops(processes[i]), processes[i]);
-        processes[i].performance = calculatePerformance(processes[i].planned_production_time - stops(processes[i]), processes[i], manu_system);
-        processes[i].quality = calculateQuality(manu_system.total_count - defects(processes[i]), manu_system);
-        processes[i].OEE = calculateOEE1(processes[i].availability, processes[i].performance, processes[i].quality);
+        processes[i].performance = calculatePerformance(processes[i].planned_production_time - stops(processes[i]), processes[i], total_count);
+        processes[i].quality = calculateQuality(total_count - defects(processes[i]), total_count);
+        processes[i].OEE = calculateOEE(processes[i].availability, processes[i].performance, processes[i].quality);
         indexArr[i] = processes[i].OEE;
     }
 
@@ -120,21 +122,22 @@ void printSortedResult(int amount_of_processes, process processes[], manufacturi
     }
 }
 
-void printResult3(int amount_of_processes, process processes[], manufacturing_system manu_system){
+/*Prints the overall result of OEE, availability, performance, and quality for the entire manufacturing model.*/
+void printOverallResult(int amount_of_processes, process processes[], int total_count){
     int i;
     double OEE, availability_total = 0, performance_total = 0, quality_total = 0, availability_mean, performance_mean, quality_mean;
 
     for(i = 0; i < amount_of_processes; i++){
         availability_total += calculateAvailability(processes[i].planned_production_time - stops(processes[i]), processes[i]);
-        performance_total += calculatePerformance(processes[i].planned_production_time - stops(processes[i]), processes[i], manu_system);
-        quality_total += calculateQuality(manu_system.total_count - defects(processes[i]), manu_system);
+        performance_total += calculatePerformance(processes[i].planned_production_time - stops(processes[i]), processes[i], total_count);
+        quality_total += calculateQuality(total_count - defects(processes[i]), total_count);
     }
     
     availability_mean = availability_total / amount_of_processes;
     performance_mean = performance_total / amount_of_processes;
     quality_mean = quality_total / amount_of_processes;
     
-    OEE = calculateOEE1(availability_mean, performance_mean, quality_mean);
+    OEE = calculateOEE(availability_mean, performance_mean, quality_mean);
 
     printf("\n___________________________________\n");
     printf(ANSI_UNDERLINED_PRE "|            Total OEE            |" ANSI_UNDERLINED_POST "\n");

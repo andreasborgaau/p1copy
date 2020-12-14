@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 
+/*Computes the expected value of defects for a single manufacturing process.*/
 double defects(process process){
     int i;
     double defects_total;
@@ -12,6 +13,7 @@ double defects(process process){
     return defects_total / NUM_SIM;
 }
 
+/*Computes the expected value of unplanned stops for a single manufacturing process.*/
 double stops(process process){
     int i;
     double US_total = 0;
@@ -22,18 +24,22 @@ double stops(process process){
     return US_total / NUM_SIM;
 }
 
+/*Calculates the availability of a single manufacturing process.*/
 double calculateAvailability(double run_time, process process){
     return run_time / process.planned_production_time;
 }
 
-double calculatePerformance(double run_time, process process, manufacturing_system manu_system){
-    return (process.ideal_cycle_time * manu_system.total_count) / run_time;
+/*Calculates the performance of a single manufacturing process.*/
+double calculatePerformance(double run_time, process process, int total_count){
+    return process.ideal_cycle_time * total_count / run_time;
 }
 
-double calculateQuality(double good_count, manufacturing_system manu_system){
-    return good_count / manu_system.total_count;
+/*Calculates the quality of a single manufacturing process.*/
+double calculateQuality(double good_count, int total_count){
+    return good_count / total_count;
 }
 
-double calculateOEE1(double availability, double performace, double quality){
+/*Calculates the OEE of a single manufacturing process.*/
+double calculateOEE(double availability, double performace, double quality){
     return availability * performace * quality;
 }
