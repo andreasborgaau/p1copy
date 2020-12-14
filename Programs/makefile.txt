@@ -20,4 +20,4 @@ asa241.o: asa241.h
 	gcc -Wall -pedantic -ansi -lm -c asa241.c
 
 clean:
-	rm manu_sim model_system.o calculate_functions.o
+	rm manu_sim inv_tran_sampling.o model_system.o calculate_functions.o results.o main.o

@@ -3,6 +3,6 @@
 double defects(process);
 double stops(process);
 double calculateAvailability(double, process);
-double calculatePerformance(double, process, manufacturing_system);
-double calculateQuality(double, manufacturing_system);
-double calculateOEE1(double, double, double);
+double calculatePerformance(double, process, int);
+double calculateQuality(double, int);
+double calculateOEE(double, double, double);

@@ -18,11 +18,7 @@ typedef struct{
     double lambda_US;
 }process;
 
-typedef struct{
-    int total_count;
-}manufacturing_system;
-
 double inv_cdf_normal(double, double, double);
 double inv_cdf_exponential(double, double);
 double sample(void);
-double simulate(process[], int*);
+void simulate(process[], int);

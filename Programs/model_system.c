@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/*Prints the model based on the amount of manufacturing processes.*/
 void newProcess(int *amount_of_processes){
     int i;
 
