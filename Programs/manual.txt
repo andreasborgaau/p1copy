@@ -31,7 +31,7 @@ After selecting "Finish model", the user is prompted to enter the data mentioned
     - If "Quit" is selected, the program quits. 
 
 The results consists of:
-    - Histograms that illustrate the distribution of unplanned stops and defects for each process.
+    - Histograms that illustrate the distribution of unplanned stops and defects for each process. One "x" represents 500 occurences.
     - A table that shows OEE, availability, performance, and quality for each process
     - A table that shows OEE, availability, performance, and quality for each process, sorted from lowest OEE to highest OEE.
     - A table that shows OEE, availability, performance, and quality for the entire manufacturing system.
