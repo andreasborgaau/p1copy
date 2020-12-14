@@ -4,7 +4,8 @@ The purpose of this program is to model a manufacturing system, and run a simula
 
 Prior to using the program, the user needs to collect data for the following:
 
-- Total count for the entire manufacturing system.
+- Total count of products for the entire manufacturing system.
+- Planned production time for each process.
 - Ideal cycle time for each process.
 - Whether data for defects and unplanned stops follows a normal distribution or an exponential distribution.
     - A normal distribution needs values for mean and standard deviation.
@@ -20,7 +21,8 @@ The program consists of three different menus. An explanation of each menu is gi
 
 2. The model menu consists of three different choices: 
 
-    - If  “Model manufacturing system” is selected, the user is prompted to enter the amount of manufacturing processes the manufacturing system contains. Followed by this, the manufacturing system will be illustrated in the terminal. The user now has the option to "Finish model" if he wants to proceed or "Return to model menu" if he wants to go back.
+    - If  “Model manufacturing system” is selected, the user is prompted to enter the amount of manufacturing processes the manufacturing system contains.
+      Followed by this, the manufacturing system will be illustrated in the terminal. The user now has the option to "Finish model" if he wants to proceed or "Return to model menu" if he wants to go back.
     - If  “Go back” is selected, the user is brought back to the main menu. 
     - If “Quit program” is selected, the program quits.     
 
@@ -34,7 +36,7 @@ After selecting "Finish model", the user is prompted to enter the data mentioned
     - If "Quit" is selected, the program quits. 
 
 
-The output consists of:
+The results consists of:
 
     - Histograms that illustrate the distribution of unplanned stops and defects for each process.
     - A table that shows OEE, availability, performance, and quality for each process, sorted from lowest OEE to highest OEE.
