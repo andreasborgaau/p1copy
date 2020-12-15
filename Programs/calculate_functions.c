@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-/*Computes the expected value of defects for a single manufacturing process.*/
+/*Computes the mean of defects for a single manufacturing process.*/
 double defects(process process){
     int i;
     double defects_total;
@@ -13,7 +13,7 @@ double defects(process process){
     return defects_total / NUM_SIM;
 }
 
-/*Computes the expected value of unplanned stops for a single manufacturing process.*/
+/*Computes the mean of unplanned stops for a single manufacturing process.*/
 double stops(process process){
     int i;
     double US_total = 0;
