@@ -18,7 +18,7 @@ Follow these steps to execute the program
         Use the command "cd". (e.g. "cd folder_name/")
 3.  Type:
         ./manu_sim.out
-4.  If you get the error message "-bash Permission denied", type the following:
+4.  If you get the error message "-bash: ./manu_sim.out: Permission denied", type the following:
         sudo chmod +x manu_sim.out
 
 Go to step 3 again and the program should now be running.
